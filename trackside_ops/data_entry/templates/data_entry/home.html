@@ -10,17 +10,20 @@
 <body class="body_home">
     <div class='background'>
     </div>
-
     <div class="container">
         <img class="logo", src="{% static '/images/logo.jpg' %}" alt="logo" 
             style="max-width: 150px; 
             border-radius: 50%;
-            margin-top: 30vh;
-            margin-left: 30%;">
-        <h3 class="title">Trackside OPS</h3>
+            margin-top: 15vh;
+            margin-left: 30%;
+            box-shadow: 2px 2px 5px rgb(66, 66, 66);
+            box-shadow: -2px 2px 5px rgb(66, 66, 66);
+            box-shadow: 2px -2px 5px rgb(66, 66, 66);
+            box-shadow: -2px -2px 5px rgb(66, 66, 66);">
+        <h3 class="text-style">TRACKSIDE OPS</h3>
         <div class="buttons">
             <form action="{% url 'data_collection' %}">
-                <input class="btn", type="submit", value="Collect Data">
+                <input class="btn", type="submit", value="Log Data">
             </form>
             <form action="{% url 'view_data' %}">
                 <input class="btn", type="submit", value="View Data ">
