@@ -26,7 +26,7 @@ SECRET_KEY = 'eyb67qm*$a&)6xojp%x@wm@uj0gqg1zmqk!u^#qhp!$!go&$1='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", default='localhost').split(" ")
 
 
 # Application definition
@@ -123,6 +123,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
