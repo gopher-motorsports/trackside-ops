@@ -123,4 +123,4 @@ USE_TZ = True
 
 STATIC_URL = '/tracksideops/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "tracksideops", "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
