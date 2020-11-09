@@ -1,1 +1,62 @@
-<h1>collect data</h1>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trackside - Log Data</title>
+    <link rel="stylesheet" href="{% static '/css/data.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1 class="logdata">Log Data Form</h1>
+            <div class="mane">
+                <form action="post">
+                    <div id="left">
+                        <h3 class="weather">Weather</h3>
+                        <input type="text" name="weather" required>
+                        <label class="label">Weather</label>
+                        <br>
+                        <input type="text" name="temperature" required>
+                        <label class="label">Temperature</label>
+
+                        <h3 class="driver">Driver</h3>
+                        <input type="text" name="driver" required>
+                        <label class="label">Driver</label>
+
+                        <h3 class="tires">Tires</h3>
+                        <input type="text" name="tires" required>
+                        <label class="label">Tire Set</label>
+                        <br>
+                        <div class="radio">
+                            <input type="radio" name="client" value="buyer" id="buyer" checked>
+                            <label for="buyer">New set</label>
+                        </div>
+                        <div class=radio>
+                            <input type="radio" name="client" value="seller" id="seller">
+                            <label for="seller">Used</label>
+                        </div>
+
+                        <h3 class="weather">Location</h3>
+                        <input type="text" name="location" required>
+                        <label class="label">Location</label>
+                        <br>
+                        <input type="text" name="temperature">
+                        <label class="label">Track</label>
+
+                        
+                    </div>
+                    <div class="right">
+                        <div class="msg">
+                            <h3 class="comments">Comments</h3>
+                            <textarea placeholder="Message" name="message"></textarea>
+                            <button type="submit" class="btn-contact">Send</button>
+                        </div> 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
