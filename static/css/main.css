@@ -78,3 +78,376 @@ html{
     color:#cfb961;
     background: linear-gradient(to bottom, #241317, rgb(27, 3, 3));
 }
+
+.container_data { 
+    position: relative; 
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../images/rainy_car.jpg);
+    background-size: cover;
+}
+
+.container_data::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.80);
+}
+
+.container_data::after {
+    content: "";
+}
+
+.form-container {
+    top: 100px;
+    position: relative;
+    text-align: center;
+}
+
+form {
+    padding: 10px;
+    display: flex;
+}
+
+.logdata {
+    width: 1600px;
+    background-color: rgba(0, 0, 0, 0.6);
+    margin: auto;
+    color: white;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.left {
+    width: 800px;
+}
+
+.right {
+    width: 800px;
+}
+
+.main {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 1600px;
+    margin: auto;
+}
+
+#weather {
+    width: 100%;
+    height: 50px;
+}
+
+.weather {
+    margin-left: 25px;
+    margin-top: 40px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.condition {
+    position: relative;
+    left: -60px;
+    top: -37px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.temperature {
+    position: relative;
+    left: 150px;
+    top: -80px;
+    width: 100px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-weather {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    left: -300px;
+    top: -76px;
+}
+
+.label-temperature {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -120px;
+    left: 45px;
+}
+
+#driver {
+    width: 100%;
+    height: 50px;
+}
+
+.driver {
+    margin-left: 25px;
+    margin-top: 40px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.driver-field {
+    position: relative;
+    left: -103px;
+    top: -37px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-driver {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -75px;
+    left: -345px;
+}
+
+#tires{
+    width: 100%;
+    height: 60px;
+}
+
+.tires {
+    margin-left: 25px;
+    margin-top: 40px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.tires-field {
+    position: relative;
+    left: -95px;
+    top: -37px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-tires {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -75px;
+    left: -345px;
+}
+
+.radio {
+    display: block;
+    flex-direction: column;
+    position: relative;
+    left: 400px;
+    top: -80px;
+    width: 100px;
+    font-size: 16px;
+}
+
+#location{
+    width: 100%;
+    height: 60px;
+}
+
+.location {
+    margin-left: 25px;
+    margin-top: 40px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.location-field {
+    position: relative;
+    top: -37px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-location {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    left: -240px;
+    font-size: 14px;
+    top: -75px;
+}
+
+.track-field {
+    position: relative;
+    left: -20px;
+    top: -37px;
+    line-height: 40px;
+    width: 100px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-track {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -75px;
+    left: -120px;
+}
+
+#fastest {
+    width: 100%;
+    height: 50px;
+}
+
+.fastest {
+    margin-left: 25px;
+    margin-top: 25px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.fastest-field {
+    position: relative;
+    top: -37px;
+    left: -77px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-fastest {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -75px;
+    left: -320px;
+}
+
+#soft-eng {
+    width: 100%;
+    height: 50px;
+}
+
+.soft-eng {
+    margin-left: 25px;
+    margin-top: 40px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.engine {
+    position: relative;
+    left: -102px;
+    top: -37px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.software {
+    position: relative;
+    left: 150px;
+    top: -80px;
+    width: 100px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-engine {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    left: -345px;
+    top: -76px;
+}
+
+.label-software {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -120px;
+    left: 45px;
+}
+
+#date {
+    width: 100%;
+    height: 60px;
+}
+
+.date {
+    margin-top: 40px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.date-field {
+    position: relative;
+    top: -35px;
+    left: -140px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+textarea {
+    height: 300px;
+    width: 600px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.btn-contact {
+    position: relative;
+    left: -350px;
+    background: #b9b9b9;
+    width: 150px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: black;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2 ease;
+}
