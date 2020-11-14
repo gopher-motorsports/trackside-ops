@@ -10,53 +10,87 @@
 <body>
     <div class="container">
         <div class="form-container">
-            <h1 class="logdata">Log Data Form</h1>
-            <div class="mane">
+            <div class="main">
+                <h1 class="logdata">Log Data Form</h1>
                 <form action="post">
-                    <div id="left">
-                        <h3 class="weather">Weather</h3>
-                        <input type="text" name="weather" required>
-                        <label class="label">Weather</label>
-                        <br>
-                        <input type="text" name="temperature" required>
-                        <label class="label">Temperature</label>
-
-                        <h3 class="driver">Driver</h3>
-                        <input type="text" name="driver" required>
-                        <label class="label">Driver</label>
-
-                        <h3 class="tires">Tires</h3>
-                        <input type="text" name="tires" required>
-                        <label class="label">Tire Set</label>
-                        <br>
-                        <div class="radio">
-                            <input type="radio" name="client" value="buyer" id="buyer" checked>
-                            <label for="buyer">New set</label>
+                    <div class="left">
+                        <div id="weather">
+                            <h3 class="weather">Weather</h3>
+                            <input class="condition" type="text" name="weather" required>
+                            <label class="label-weather">Weather Conditions</label>
+                            <br>
+                            <input class="temperature" type="text" name="temperature" required>
+                            <label class="label-temperature">Temperature</label>
                         </div>
-                        <div class=radio>
-                            <input type="radio" name="client" value="seller" id="seller">
-                            <label for="seller">Used</label>
+                        <div id="driver">
+                            <h3 class="driver">Driver</h3>
+                            <input class="driver-field" type="text" name="driver" required>
+                            <label class="label-driver">Driver</label>
                         </div>
-
-                        <h3 class="weather">Location</h3>
-                        <input type="text" name="location" required>
-                        <label class="label">Location</label>
-                        <br>
-                        <input type="text" name="temperature">
-                        <label class="label">Track</label>
-
-                        
+                        <div id="tires">
+                            <h3 class="tires">Tires</h3>
+                            <input class="tires-field" type="text" name="tires" required>
+                            <label class="label-tires">Tire Set</label>
+                            <div class="radio">
+                                <div>
+                                    <label for="buyer">New set</label>
+                                    <input type="radio" name="tire-condition" value="new_set" id="new_set" checked>
+                                </div>
+                                <div>
+                                    <label for="seller">Used</label>
+                                    <input type="radio" name="tire-condition" value="used" id="used">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="soft-eng">
+                            <h3 class="soft-eng">Engine</h3>
+                            <input class="engine" type="text" name="soft-eng">
+                            <label class="label-engine">Engine</label>
+                            <br>
+                            <input class="software" type="text" name="temperature">
+                            <label class="label-software">Software Version</label>
+                        </div>
                     </div>
                     <div class="right">
+                        <div id="date">
+                            <h3 class="date">Date</h3>
+                            <input class="date-field" type="date" id="datetime" name="date"
+                                min="2020-01-01" max="2030-12-31">
+                        </div>
+                        <div id="location">
+                            <h3 class="location">Location</h3>
+                            <input class="location-field" type="text" name="location" required>
+                            <label class="label-location">Location</label>
+                            <input class="track-field" type="text" name="track">
+                            <label class="label-track">Track</label>
+                        </div>
+                        <div id="fastest">
+                            <h3 class="fastest">Fast Lap</h3>
+                            <input class="fastest-field" type="text" name="fastest">
+                            <label class="label-fastest">Fast Lap</label>
+                        </div>
                         <div class="msg">
                             <h3 class="comments">Comments</h3>
-                            <textarea placeholder="Message" name="message"></textarea>
-                            <button type="submit" class="btn-contact">Send</button>
+                            <textarea placeholder="Message" name="Comments"></textarea>
                         </div> 
+                        <button type="submit" class="btn-contact">SUBMIT</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </body>
+<script>
+    var date = new Date();
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = year + "-" + month + "-" + day;       
+    document.getElementById("theDate").value = today;
+</script>
 </html>
