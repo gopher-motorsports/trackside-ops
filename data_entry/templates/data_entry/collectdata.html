@@ -33,11 +33,11 @@
                             <label class="label-tires">Tire Set</label>
                             <div class="radio">
                                 <div>
-                                    <label for="buyer">New set</label>
+                                    <label class="radio_tires" for="buyer">New set</label>
                                     <input type="radio" name="tire-condition" value="new_set" id="new_set" checked>
                                 </div>
                                 <div>
-                                    <label for="seller">Used</label>
+                                    <label class="radio_tires" for="seller">Used</label>
                                     <input type="radio" name="tire-condition" value="used" id="used">
                                 </div>
                             </div>
@@ -80,17 +80,4 @@
         </div>
     </div>
 </body>
-<script>
-    var date = new Date();
-
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-
-    if (month < 10) month = "0" + month;
-    if (day < 10) day = "0" + day;
-
-    var today = year + "-" + month + "-" + day;       
-    document.getElementById("theDate").value = today;
-</script>
 </html>
