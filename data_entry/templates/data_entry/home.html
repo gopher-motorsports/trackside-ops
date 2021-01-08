@@ -22,11 +22,16 @@
             box-shadow: -2px -2px 5px rgb(66, 66, 66);">
         <h3 class="text-style">TRACKSIDE OPS</h3>
         <div class="buttons">
-            <form action="{% url 'data_collection' %}">
+            <form action="{% url 'collectdata' %}">
                 <input class="btn", type="submit", value="Log Data">
             </form>
             <form action="{% url 'view_data' %}">
-                <input class="btn", type="submit", value="View Data ">
+                <input class="btn", type="submit", value="View Data">
+            </form>
+        </div>
+        <div class="buttons">
+            <form action="{% url 'create_user' %}">
+                <input class="btn-user", type="submit", value="Create User">
             </form>
         </div>
     </div>
