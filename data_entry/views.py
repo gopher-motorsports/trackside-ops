@@ -19,7 +19,7 @@ def collectData(request):
         software = request.POST['software']
         comments = request.POST['comments']
         personnel = []
-        for person in request.POST['personnel'].split(','):
+        for person in request.POST['personnel'].replace(' ', '').split(','):
             if Person.objects.filter(name=person).exists():
                 personnel.append(person)
             else:
