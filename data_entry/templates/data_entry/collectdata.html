@@ -11,6 +11,17 @@
     <div class="container_data">
         <div class="form-container">
             <div class="main">
+                {% if message %}
+                <h1 class="logdata">{{message}}</h1>
+                <form action="{% url 'collectdata' %}">
+                    <input class="btn-user", type="submit", value="New Entry">
+                </form>
+                <form action="{% url 'home' %}">
+                    <input class="btn-user", style="margin-top: 100px" type="submit", value="Home">
+                </form>
+
+
+                {% else %}
                 <h1 class="logdata">Log Data Form</h1>
                 <form action="{% url 'collectdata' %}" method="post">
                     {% csrf_token %}
@@ -34,12 +45,12 @@
                             <label class="label-tires">Tire Set</label>
                             <div class="radio">
                                 <div>
-                                    <label class="radio_tires" for="buyer">New set</label>
+                                    <label class="radio_tires" for="new">New set</label>
                                     <input type="radio" name="tire_condition" value="new_set" id="new_set" checked>
                                 </div>
                                 <div>
-                                    <label class="radio_tires" for="seller">Used</label>
-                                    <input type="radio" name="tire-condition" value="used" id="used">
+                                    <label class="radio_tires" for="used">Used</label>
+                                    <input type="radio" name="tire_condition" value="used" id="used">
                                 </div>
                             </div>
                         </div>
@@ -50,6 +61,17 @@
                             <br>
                             <input class="software" type="text" name="software">
                             <label class="label-software">Software Version</label>
+                        </div>
+                        <div id="misc">
+                            <h3 class="misc">Personnel</h3>
+                            <input class="personnel" type="text" name="personnel">
+                            <label class="label-personnel">Personnel</label>
+                        </div>
+                        <div id="misc">
+                            <h3 class="misc">Load Entry</h3>
+                            <input class="load" type="text" name="load">
+                            <label class="label-load">Test ID</label>
+                            <button type="submit" class="btn-load">Load</button>
                         </div>
                     </div>
                     <div class="right">
@@ -77,6 +99,7 @@
                         <button type="submit" class="btn-submit">SUBMIT</button>
                     </div>
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>

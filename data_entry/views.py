@@ -18,6 +18,14 @@ def collectData(request):
         engine = request.POST['engine']
         software = request.POST['software']
         comments = request.POST['comments']
+        personnel = []
+        for person in request.POST['personnel'].split(','):
+            if Person.objects.filter(name=person).exists():
+                personnel.append(person)
+            else:
+                message = 'No user found with name ' + person
+                return render(request, 'data_entry/collectdata.html', {'message': message})
+
 
         context = {
             'weather': weather,
@@ -31,6 +39,7 @@ def collectData(request):
             'engine': engine,
             'software': software,
             'comments': comments,
+            'personnel': personnel,
         }
 
         Test.objects.create(
@@ -44,12 +53,13 @@ def collectData(request):
             tire_condition = tire_condition,
             engine = engine,
             software = software,
-            comments = comments
+            comments = comments,
+            personnel = personnel
         )
 
         message = 'Data has been recorded'
 
-        return render(request, 'data_entry/collectdata.html', message)
+        return render(request, 'data_entry/collectdata.html', {'message': message})
 
     else:
         context = {}
@@ -64,30 +74,30 @@ def createUser(request):
         name = request.POST['name']
         email = request.POST['email']
         subteam = request.POST['subteam']
+        phone = request.POST['phone']
+        licensed = request.POST['licensed']
 
         context = {
             'name': name,
             'email': email,
             'subteam': subteam,
+            'phone': phone,
+            'licensed': licensed,
         }
 
         if Person.objects.filter(email=email).exists():
-            message = "User already exist"
-            context = {
-                'message'
-            }
-            return render(request, 'data_entry/createuser.html', context)
+            return render(request, 'data_entry/createuser.html', {'email':email})
 
         else:
             Person.objects.create(
                 name = name,
                 email = email,
                 subteam = subteam,
+                phone = phone,
+                licensed = licensed,
             )
 
-            message = 'User has been created'
-
-            return render(request, 'data_entry/createuser.html', context)
+            return render(request, 'data_entry/createuser.html', {'name':name})
 
     else:
         context = {}

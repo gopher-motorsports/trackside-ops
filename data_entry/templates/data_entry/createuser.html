@@ -9,19 +9,49 @@
 </head>
 <body>
     <div class="create-user">
+        {% if email %}
+        <h1>User with email: {{ email }} already exists</h1>
+        <form action="{% url 'create_user' %}">
+            <input class="btn-user", type="submit", value="Create User">
+        </form>
+        <form action="{% url 'home' %}">
+            <input class="btn-user", type="submit", style="margin-top: 100px;", value="Home">
+        </form>
+
+        {% elif name %}
+        <h1>User created for {{ name }}</h1>
+        <form action="{% url 'create_user' %}">
+            <input class="btn-user", type="submit", value="Create User">
+        </form>
+        <form action="{% url 'home' %}">
+            <input class="btn-user", type="submit", value="Home">
+        </form>
+
+
+        {% else %}
         <h1>Create User</h1>
         <form action="{% url 'create_user' %}" method="post" class="user-form">
             {% csrf_token %}
             <div>
                 <p>Name: </p>
-                <input type="text" name="name" placeholder="Name">
+                <input type="text" name="name" placeholder="Name" required>
                 <p>Email: </p>
-                <input type="text" name="email" placeholder="Email">
+                <input type="text" name="email" placeholder="Email" required>
                 <p>Subteam: </p>
-                <input type="text" name="subteam" placeholder="Subteam">
+                <input type="text" name="subteam" placeholder="Subteam" required>
+                <p>Phone: </p>
+                <input type="text" name="phone" placeholder="Subteam" required>
+                <div class="licensed">
+                    <p>Licensed: </p>
+                    <label class="radio_tires" for="new">Yes</label>
+                    <input type="radio" name="licensed" value="True" id="True">
+                    <label class="radio_tires" for="used">No</label>
+                    <input type="radio" name="licensed" value="False" id="False">
+                </div>
             </div>
             <button type="submit" class="btn-createuser">Create User</button>
         </form>
+        {% endif %}
     </div>
 </body>
 </html>
