@@ -36,7 +36,9 @@ html{
 .container {
     height: auto;
 }
-
+table, tr, td {
+    border: 1px solid blue;
+}
 .text-style {
     position: relative;
     margin-top: 10PX;
