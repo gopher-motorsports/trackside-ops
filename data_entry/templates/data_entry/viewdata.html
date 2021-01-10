@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,7 @@
     <link rel="stylesheet" type='text/css' media='screen' href="{% static '/css/main.css' %"}>
     <script src='main.js'></script>
     <style>
-        <style>
+    
 * {box-sizing: border-box;}
 
 body { 
@@ -63,35 +64,59 @@ body {
     float: none;
   }
 }
-</style>
+
+table {
+  border-collapse: collapse;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  object-fit: cover;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+h1, h2, h3, h4, h5, p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
     </style>
 </head>
 <body>
     <div class="header">
-        <a href="#default" class="logo">Trackside Ops</a>
-      </div>
-    <h4>Data entered</h4>
-    <table width="75%">
-        <tr>
-            <td>Date</td>
-            <td>Driver</td>
-            <td>Description</td>
-        </tr>
-        <tr>
-            <td>11/30/2020</td>
-            <td>John Cena</td>
-            <td>Very fast driver</td>
-        </tr>
-        <tr>
-            <td>05/15/2019</td>
-            <td>John Smith</td>
-            <td>Rainy, tires slipped</td>
-        </tr>
-        <tr>
-            <td>11/30/2050</td>
-            <td>John Appleseed</td>
-            <td>Snowy, car got stuck</td>
-        </tr>
-    </table>
+        <a href="{% url 'home' %}" class="logo">Trackside Ops</a>
+    </div>
+    <div class="container" align="center">
+        <h4>Data entered</h4>
+        <table width="75%">
+            <tr>
+                <td>Date</td>
+                <td>Drivers</td>
+                <td>Track</td>
+                <td>Weather</td>
+                <td>Personnel</td>
+                <td>Location</td>
+                <td></td>
+            </tr>
+            {% for entry in entries %}
+                <tr>
+                    <td>{{entry.created_at}}</td>
+                    <td>{{entry.driver}}</td>
+                    <td>{{entry.track}}</td>
+                    <td>{{entry.weather}}</td>
+                    <td>{{entry.personnel}}</td>
+                    <td>{{entry.location}}</td>
+                    <td>
+                        <img src="{% static '/images/edit.png' %}" alt="edit" height="30%" width="7%" >
+                        <img src="{% static '/images/delete.png' %}" alt="delete" height="25%" width="7%">
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
 </html>

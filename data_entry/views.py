@@ -66,8 +66,23 @@ def collectData(request):
         return render(request, 'data_entry/collectdata.html', context)
 
 def viewData(request):
-    context = {}
-    return render(request, 'data_entry/viewdata.html', context)
+    #when they want to do filters
+    if request.method == 'POST':
+        filter = request.POST['filter']
+        param = request.POST['param']
+        entries = Test.objects.all()
+        filtered_entires = []
+        for entry in entries:
+            #test is table name
+            if Test.object.filter(entry.filter==param):
+                filtered_entires.append(entry)   
+        context = {'filtered_entries': filtered_entries}
+        return render(request, 'data_entry/viewdata.html', context)
+
+    else:     
+        entries = Test.objects.order_by('-created_at')
+        context = {'entries': entries}
+        return render(request, 'data_entry/viewdata.html', context)
 
 def createUser(request):
     if request.method == 'POST':
