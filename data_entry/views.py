@@ -7,59 +7,64 @@ def home(request):
 
 def collectData(request):
     if request.method == 'POST':
-        weather = request.POST['weather']
-        temperature = request.POST['temperature']
-        driver = request.POST['driver']
-        location = request.POST['location']
-        track = request.POST['track']
-        fast_lap = request.POST['fast_lap']
-        tires = request.POST['tires']
-        tire_condition = request.POST['tire_condition']
-        engine = request.POST['engine']
-        software = request.POST['software']
-        comments = request.POST['comments']
-        personnel = []
-        for person in request.POST['personnel'].replace(' ', '').split(','):
-            if Person.objects.filter(name=person).exists():
-                personnel.append(person)
-            else:
-                message = 'No user found with name ' + person
-                return render(request, 'data_entry/collectdata.html', {'message': message})
+        if request.POST['entry_id']:
+            entry_id = request.POST['entry_id']
+            entry = Test.objects.get(id=entry_id)
+            context = {'entry': entry}
+            return render(request, 'data_entry/collectdata.html', context)
+        else:
+            weather = request.POST['weather']
+            temperature = request.POST['temperature']
+            driver = request.POST['driver']
+            location = request.POST['location']
+            track = request.POST['track']
+            fast_lap = request.POST['fast_lap']
+            tires = request.POST['tires']
+            tire_condition = request.POST['tire_condition']
+            engine = request.POST['engine']
+            software = request.POST['software']
+            comments = request.POST['comments']
+            personnel = []
+            for person in request.POST['personnel'].replace(' ', '').split(','):
+                if Person.objects.filter(name=person).exists():
+                    personnel.append(person)
+                else:
+                    message = 'No user found with name ' + person
+                    return render(request, 'data_entry/collectdata.html', {'message': message})
 
 
-        context = {
-            'weather': weather,
-            'temperature': temperature,
-            'driver': driver,
-            'location': location,
-            'track': track,
-            'fast_lap': fast_lap,
-            'tires': tires,
-            'tire_condition': tire_condition,
-            'engine': engine,
-            'software': software,
-            'comments': comments,
-            'personnel': personnel,
-        }
+            context = {
+                'weather': weather,
+                'temperature': temperature,
+                'driver': driver,
+                'location': location,
+                'track': track,
+                'fast_lap': fast_lap,
+                'tires': tires,
+                'tire_condition': tire_condition,
+                'engine': engine,
+                'software': software,
+                'comments': comments,
+                'personnel': personnel,
+            }
 
-        Test.objects.create(
-            weather = weather,
-            temperature = temperature,
-            driver = driver,
-            location = location,
-            track = track,
-            fast_lap = fast_lap,
-            tires = tires,
-            tire_condition = tire_condition,
-            engine = engine,
-            software = software,
-            comments = comments,
-            personnel = personnel
-        )
+            Test.objects.create(
+                weather = weather,
+                temperature = temperature,
+                driver = driver,
+                location = location,
+                track = track,
+                fast_lap = fast_lap,
+                tires = tires,
+                tire_condition = tire_condition,
+                engine = engine,
+                software = software,
+                comments = comments,
+                personnel = personnel
+            )
 
-        message = 'Data has been recorded'
-
-        return render(request, 'data_entry/collectdata.html', {'message': message})
+            message = 'Data has been recorded'
+            return render(request, 'data_entry/collectdata.html', {'message': message})
 
     else:
         context = {}
@@ -68,19 +73,16 @@ def collectData(request):
 def viewData(request):
     #when they want to do filters
     if request.method == 'POST':
-        filter = request.POST['filter']
-        param = request.POST['param']
+        method = request.POST['method']
+        if method == "delete":
+            entry_id = request.POST['entry_id']
+            Test.objects.filter(id=entry_id).delete()
+            entries = Test.objects.all()
+            context = {'entries': entries}
+            return render(request, 'data_entry/viewdata.html', context)
+        
+    else:
         entries = Test.objects.all()
-        filtered_entires = []
-        for entry in entries:
-            #test is table name
-            if Test.object.filter(entry.filter==param):
-                filtered_entires.append(entry)   
-        context = {'filtered_entries': filtered_entries}
-        return render(request, 'data_entry/viewdata.html', context)
-
-    else:     
-        entries = Test.objects.order_by('-created_at')
         context = {'entries': entries}
         return render(request, 'data_entry/viewdata.html', context)
 
