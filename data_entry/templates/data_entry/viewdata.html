@@ -37,7 +37,7 @@
                             <form action="{%url 'collectdata' %}" method="post">
                                 {% csrf_token %}
                                 <input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
-                                <input type ="text" name="method" style="display: none;" value="edit">
+                                <input type ="text" name="method" style="display: none;" value="load">
                                 <input type=image class="btn-edit" src="{% static '/images/edit.png' %}">
                             </form>   
                             <form action="{%url 'view_data' %}" method="post">

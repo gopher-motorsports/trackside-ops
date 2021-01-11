@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'trackside_ops.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get("POSTGRES_DB"),
-        'USER': os.environ.get("POSTGRES_USER"),
-        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        'HOST': os.environ.get("POSTGRES_HOST"),
+        'NAME': 'Trackside_DB',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres2021',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

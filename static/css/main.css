@@ -33,6 +33,20 @@ html{
     z-index: -1;
 }
 
+.h3-home {
+    position: absolute;
+    color: white;
+    left: 50px;
+    top: -50px;
+}
+
+.h3-home-user {
+    position: absolute;
+    color: white;
+    left: -200%;
+    top: -90px;
+}
+
 .container {
     height: auto;
 }
