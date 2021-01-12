@@ -28,20 +28,20 @@
                     <div class="left">
                         <div id="weather">
                             <h3 class="weather">Weather</h3>
-                            <input class="condition" type="text" name="weather" value="{{entry.weather}}" required>
+                            <input class="condition" type="text" name="weather" value="{{entry.weather}}">
                             <label class="label-weather">Weather Conditions</label>
                             <br>
-                            <input class="temperature" type="text" name="temperature" value="{{entry.temperature}}" required>
+                            <input class="temperature" type="text" name="temperature" value="{{entry.temperature}}">
                             <label class="label-temperature">Temperature</label>
                         </div>
                         <div id="driver">
                             <h3 class="driver">Driver</h3>
-                            <input class="driver-field" type="text" name="driver" value="{{entry.driver}}" required>
+                            <input class="driver-field" type="text" name="driver" value="{{entry.driver}}">
                             <label class="label-driver">Driver</label>
                         </div>
                         <div id="tires">
                             <h3 class="tires">Tires</h3>
-                            <input class="tires-field" type="text" name="tires" value="{{entry.tires}}" required>
+                            <input class="tires-field" type="text" name="tires" value="{{entry.tires}}">
                             <label class="label-tires">Tire Set</label>
                             <div class="radio">
                                 <div>
@@ -67,12 +67,6 @@
                             <input class="personnel" type="text" name="personnel" value={{personnel}}>
                             <label class="label-personnel">Personnel</label>
                         </div>
-                        <div id="misc">
-                            <h3 class="misc">Load Entry</h3>
-                            <input class="load" type="text" name="entry_id" value={{entry.id}}>
-                            <label class="label-load">Test ID</label>
-                            <button type="submit" class="btn-load">Load</button>
-                        </div>
                     </div>
                     <div class="right">
                         <div id="date">
@@ -82,7 +76,7 @@
                         </div>
                         <div id="location">
                             <h3 class="location">Location</h3>
-                            <input class="location-field" type="text" name="location" value={{entry.location}} required>
+                            <input class="location-field" type="text" name="location" value={{entry.location}}>
                             <label class="label-location">Location</label>
                             <input class="track-field" type="text" name="track" value={{entry.track}}>
                             <label class="label-track">Track</label>
@@ -98,6 +92,16 @@
                         </div>
                         <input style="display: none;" type="text" name="method" value="update">
                         <button type="submit" class="btn-submit">SUBMIT</button>
+                    </div>
+                </form>
+                <form action="{% url 'collectdata' %}" method="post">
+                    {% csrf_token %}
+                    <div id="misc-load">
+                        <h3 class="misc-load">Load Entry</h3>
+                        <input class="load" type="text" name="entry_id">
+                        <input type="text" name="method" value="load" style="display: none">
+                        <label class="label-load">Test ID</label>
+                        <button type="submit" class="btn-load">Load</button>
                     </div>
                 </form>
 
@@ -144,14 +148,8 @@
                         </div>
                         <div id="misc">
                             <h3 class="misc">Personnel</h3>
-                            <input class="personnel" type="text" name="personnel">
+                            <input class="personnel" type="text" name="personnel" placeholder="Required">
                             <label class="label-personnel">Personnel</label>
-                        </div>
-                        <div id="misc">
-                            <h3 class="misc">Load Entry</h3>
-                            <input class="load" type="text" name="entry_id">
-                            <label class="label-load">Test ID</label>
-                            <button type="submit" class="btn-load">Load</button>
                         </div>
                     </div>
                     <div class="right">
@@ -162,7 +160,7 @@
                         </div>
                         <div id="location">
                             <h3 class="location">Location</h3>
-                            <input class="location-field" type="text" name="location" placeholder="Required " required>
+                            <input class="location-field" type="text" name="location" placeholder="Required" required>
                             <label class="label-location">Location</label>
                             <input class="track-field" type="text" name="track">
                             <label class="label-track">Track</label>
@@ -178,6 +176,16 @@
                         </div> 
                         <input style="display: none;" type="text" name="update" value="False">
                         <button type="submit" class="btn-submit">SUBMIT</button>
+                    </div>
+                </form>
+                <form action="{% url 'collectdata' %}" method="post">
+                    {% csrf_token %}
+                    <div id="misc-load">
+                        <h3 class="misc-load">Load Entry</h3>
+                        <input class="load" type="text" name="entry_id">
+                        <input type="text" name="method" value="load" style="display: none">
+                        <label class="label-load">Test ID</label>
+                        <button type="submit" class="btn-load">Load</button>
                     </div>
                 </form>
                 {% endif %}
