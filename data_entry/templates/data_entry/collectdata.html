@@ -98,7 +98,7 @@
                     {% csrf_token %}
                     <div id="misc-load">
                         <h3 class="misc-load">Load Entry</h3>
-                        <input class="load" type="text" name="entry_id">
+                        <input class="load" type="text" name="entry_id" value={{entry.id}}>
                         <input type="text" name="method" value="load" style="display: none">
                         <label class="label-load">Test ID</label>
                         <button type="submit" class="btn-load">Load</button>
