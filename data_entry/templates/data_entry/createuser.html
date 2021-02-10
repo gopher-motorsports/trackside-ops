@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="create-user">
+        <a href="{% url 'home' %}"><h3 class="h3-home-user">Back to Home</h3></a>
         {% if email %}
         <h1>User with email: {{ email }} already exists</h1>
         <form action="{% url 'create_user' %}">
@@ -40,11 +41,11 @@
                 <p>Subteam: </p>
                 <input type="text" name="subteam" placeholder="Subteam" required>
                 <p>Phone: </p>
-                <input type="text" name="phone" placeholder="Subteam" required>
+                <input type="text" name="phone" placeholder="Phone" pattern="([0-9]{3}-[0-9]{3}-[0-9]{4})|[0-9]{10}" required>
                 <div class="licensed">
                     <p>Licensed: </p>
                     <label class="radio_tires" for="new">Yes</label>
-                    <input type="radio" name="licensed" value="True" id="True">
+                    <input type="radio" name="licensed" value="True" id="True" checked>
                     <label class="radio_tires" for="used">No</label>
                     <input type="radio" name="licensed" value="False" id="False">
                 </div>
