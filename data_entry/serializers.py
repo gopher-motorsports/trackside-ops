@@ -12,3 +12,4 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Person
         fields = ('email', 'name', 'subteam', 'phone', 'licensed')
+        
