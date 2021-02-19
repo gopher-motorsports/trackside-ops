@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from .keys import keys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,10 +82,10 @@ WSGI_APPLICATION = 'trackside_ops.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Trackside_DB',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'postgres2021',
-        'HOST': 'localhost',
+        'PASSWORD': keys['password'],
+        'HOST': keys['host'],
         'PORT': '5432',
     }
 }
@@ -132,7 +133,7 @@ STATICFILES_FINDERS = (
 )
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
+    os.path.join(BASE_DIR, "Home/static/css")
 ]
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
