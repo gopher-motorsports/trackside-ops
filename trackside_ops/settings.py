@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
     #new apps
     'data_entry.apps.DataEntryConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

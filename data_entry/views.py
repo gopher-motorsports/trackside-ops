@@ -1,6 +1,16 @@
 from django.shortcuts import render
-from .models import *
+from .models import Person, Test
 import datetime
+from .serializers import PersonSerializer, TestSerializer
+from rest_framework import viewsets
+
+class TestViewSet(viewsets.ModelViewSet):
+    queryset = Test.objects.all().order_by('created_at')
+    serializer_class = TestSerializer
+
+class PersonViewSet(viewsets.ModelViewSet):
+    queryset = Person.objects.all().order_by('name')
+    serializer_class = PersonSerializer
 
 """
     Home Page

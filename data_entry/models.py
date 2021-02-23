@@ -25,3 +25,4 @@ class Test(models.Model):
     comments = models.TextField(blank=True)
     created_at = models.DateTimeField(default=now)
     personnel = ArrayField(models.CharField(max_length=200), null=True)
+    
