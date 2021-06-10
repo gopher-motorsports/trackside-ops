@@ -185,21 +185,32 @@ def viewData(request):
             entries = Test.objects.all()
             context = {'entries': entries}
             return render(request, 'data_entry/viewdata.html', context)
-        
-        # filter entries
-        # TODO
-        # Following code is a rough idea. 
-        # Test.objects.filter might be a better idea
-
-        # if method == "filter":
-        #     param = request.POST['param']
-        #     search = request.POST['search']
-        #     entries = Test.objects.all()
-        #     filtered_entries = []
-        #     for entry in entries:
-        #         if entry.search == param:
-        #             filtered_entries.append(entry)
-
+        elif method == "filter":
+            param = request.POST['param']
+            hashTable = {
+                "id": "id",
+                "Date": "created_at",
+                "Weather" : "weather",
+                "Temperature": "temperature",
+                "Driver": "driver",
+                "Location": "location",
+                "Track": "track",
+                "Fast Lap": "fast_lap",
+                "Tires": "tires",
+                "Tire Condition": "tire_condition",
+                "Engine": "engine",
+                "Software": "software",
+                "Comments": "comments",
+                "Created At": "created_at",
+                "Personnel": "personnel"
+            }
+            search_param = request.POST['search']
+            d = {
+                hashTable[search_param]: param
+            }
+            entries = Test.objects.filter(**d)
+            context = {'entries': entries}
+            return render(request, 'data_entry/viewdata.html', context)
     # load all entries   
     else:
         entries = Test.objects.all()

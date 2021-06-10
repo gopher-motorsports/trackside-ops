@@ -80,7 +80,17 @@ th, td {
 h1, h2, h3, h4, h5, p {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 .btns {
     display: flex;
 }
