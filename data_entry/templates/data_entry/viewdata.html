@@ -14,58 +14,24 @@
     </div>
     <div class="container" align="center">
         <h4>View/Edit Data</h4>
+		<select name="cars" id="fields">
+			<option value="-1">Select a Field</option>
+			<option value="0">Date</option>
+			<option value="1">Driver</option>
+			<option value="2">Track</option>
+			<option value="3">Weather</option>
+			<option value="4">Location</option>
+			<option value="5">Personnel</option>
+		</select>
+		<input onkeyup="filter()" type ="text" id="sandman" name="param" placeholder ="Search">
         <table width="75%" id="spiderman">
             <tr>
-                <form action="{%url 'view_data' %}" method="POST">
-                    {% csrf_token %}
-                    <!-- <input type ="text" name="method" style="display: none;" value="Search">  -->
-                    <!-- <input list="searches" name="search" placeholder="Choose field to filter" /> this is the dropdown -->
-                    <!-- <datalist id="searches">
-                        <option value="id">
-                        <option value="Date">
-                        <option value="Temperature">
-                        <option value="Driver">
-                        <option value="Location">
-                        <option value="Track">
-                        <option value="Fast Lap">
-                        <option value="Engine">
-                        <option value="Tires">
-                        <option value="Tire Condition">
-                        <option value="Software">
-                        <option value="Comments">
-                        <option value="Created At">
-                        <option value="Personnel">
-                    </datalist> -->
-					<select name="cars" id="cars">
-							<option value="empyy">Select a Field</option>
-							<option value="id">id</option>
-							<option value="Date">Date</option>
-							<option value="Temperature">Temperature</option>
-							<option value="Driver">Driver</option>
-							<option value="Location">Location</option>
-							<option value="Track">Track</option>
-							<option value="Fast Lap">Fast Lap</option>
-							<option value="Engine">Engine</option>
-							<option value="Tires">Tires</option>
-							<option value="Tire Condition">Tire Condition</option>
-							<option value="Software">Software</option>
-							<option value="Comments">Comments</option>
-							<option value="Created At">Created At</option>
-							<option value="Personnel">Personnel</option>
-					  </select>
-                    <input onkeyup="filter()" type ="text" id="sandman" name="param" placeholder ="Search">
-                    <!-- <button type="submit" method ="filter" class="button">Search</button> -->
-                    <!-- <input type="image" src="{% static '/images/search.png' %}"> -->
-                </form>   
-            </tr>
-            <tr>
-                <td>Date</td>
-                <td>Drivers</td>
-                <td>Track</td>
-                <td>Weather</td>
-                <td>Personnel</td>
-                <td>Location</td>
-                <td></td>
+                <th>Date</th>
+                <th>Drivers</th>
+                <th>Track</th>
+                <th>Weather</th>
+                <th>Personnel</th>
+                <th>Location</th>
             </tr>
             {% for entry in entries %}
                 <tr>
@@ -99,11 +65,12 @@
 		function filter() {
 			var input, filter, table, tr, td, i, txtValue, index;
 			input = document.getElementById("sandman");
+			index = document.getElementById("fields").value
 			filter = input.value.toUpperCase();
 			table = document.getElementById("spiderman");
 			tr = table.getElementsByTagName("tr");
 			for (i = 0; i < tr.length; i++) {
-				td = tr[i].getElementsByTagName("td")[2];
+				td = tr[i].getElementsByTagName("td")[index];
 				if (td) {
 					txtValue = td.textContent || td.innerText;
 					if (txtValue.toUpperCase().indexOf(filter) > -1) {
