@@ -6,60 +6,86 @@
     <title>Trackside Ops- View Data</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="{% static '/css/view_data.css' %}">
+	<!-- Bootstrap CDN -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<!-- end Bootstrap CDN -->
     <script src='main.js'></script>
 </head>
-<body>
-    <div class="header">
-        <a href="{% url 'home' %}" class="logo">Trackside Ops</a>
+<body style="background-color: #862334">
+    <div class="header" style="background-color: #Bcbe25">
+		<div class="row">
+			<div class="col-md-4" align="left">
+				<a href="{% url 'home' %}" class="logo">Trackside Ops</a>
+			</div>
+			<div class="col-md-4" align="left">
+				<h4 align="center">View/Edit Data</h4>
+			</div>
+		</div>
     </div>
+	<!-- The div below contains whole body of website -->
+	<br>
     <div class="container" align="center">
-        <h4>View/Edit Data</h4>
-		<select name="cars" id="fields">
-			<option value="-1">Select a Field</option>
-			<option value="0">Date</option>
-			<option value="1">Driver</option>
-			<option value="2">Track</option>
-			<option value="3">Weather</option>
-			<option value="4">Personnel</option>
-			<option value="5">Location</option>
-		</select>
-		<input onkeyup="filter()" type ="text" id="sandman" name="param" placeholder ="Search">
-        <table width="75%" id="spiderman">
-            <tr>
-                <th>Date</th>
-                <th>Drivers</th>
-                <th>Track</th>
-                <th>Weather</th>
-                <th>Personnel</th>
-                <th>Location</th>
-            </tr>
-            {% for entry in entries %}
-                <tr>
-                    <td>{{entry.created_at}}</td>
-                    <td>{{entry.driver}}</td>
-                    <td>{{entry.track}}</td>
-                    <td>{{entry.weather}}</td>
-                    <td>{{entry.personnel}}</td>
-                    <td>{{entry.location}}</td>
-                    <td>
-                        <div class='btns'>
-                            <form action="{%url 'collectdata' %}" method="post">
-                                {% csrf_token %}
-                                <input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
-                                <input type ="text" name="method" style="display: none;" value="load">
-                                <input type=image class="btn-edit" src="{% static '/images/edit.png' %}">
-                            </form>   
-                            <form action="{%url 'view_data' %}" method="post">
-                                {% csrf_token %}
-                                <input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
-                                <input type ="text" name="method" style="display: none;" value="delete">
-                                <input type=image class="btn-delete" src="{% static '/images/delete.png' %}">
-                            </form>
-                        </div>                  
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+		<!-- Row that contains dropdown and text box -->
+		<div class="row">
+			<div class="col-md-6" align="right">
+				<!-- "Select Field" Dropdown -->
+				<select style="border-radius: 20px" name="cars" id="fields">
+					<option value="-1">Select a Field</option>
+					<option value="0">Date</option>
+					<option value="1">Driver</option>
+					<option value="2">Track</option>
+					<option value="3">Weather</option>
+					<option value="4">Personnel</option>
+					<option value="5">Location</option>
+				</select>
+			</div>
+			<div class="col-md-6" align="left">
+				<!-- Text box to filter -->
+				<input style="border-radius: 15px" onkeyup="filter()" type ="text" id="sandman" name="param" placeholder ="Search">
+			</div>
+		<!-- End row that contains dropdown and text box -->
+		</div>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<table width="75%" id="spiderman">
+					<tr>
+						<th style="color: #FFFFFF">Date</th>
+						<th style="color: #FFFFFF">Drivers</th>
+						<th style="color: #FFFFFF">Track</th>
+						<th style="color: #FFFFFF">Weather</th>
+						<th style="color: #FFFFFF">Personnel</th>
+						<th style="color: #FFFFFF">Location</th>
+					</tr>
+					{% for entry in entries %}
+						<tr>
+							<td style="color: #FFFFFF">{{entry.created_at}}</td>
+							<td style="color: #FFFFFF">{{entry.driver}}</td>
+							<td style="color: #FFFFFF">{{entry.track}}</td>
+							<td style="color: #FFFFFF">{{entry.weather}}</td>
+							<td style="color: #FFFFFF">{{entry.personnel}}</td>
+							<td style="color: #FFFFFF">{{entry.location}}</td>
+							<td>
+								<div class='btns'>
+									<form action="{%url 'collectdata' %}" method="post">
+										{% csrf_token %}
+										<input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
+										<input type ="text" name="method" style="display: none;" value="load">
+										<input type=image class="btn-edit" src="{% static '/images/edit.png' %}">
+									</form>   
+									<form action="{%url 'view_data' %}" method="post">
+										{% csrf_token %}
+										<input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
+										<input type ="text" name="method" style="display: none;" value="delete">
+										<input type=image class="btn-delete" src="{% static '/images/delete.png' %}">
+									</form>
+								</div>                  
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
     </div>
 	<script>
 		function filter() {
