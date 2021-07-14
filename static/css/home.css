@@ -1,0 +1,647 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    background-color: black;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.body_home {
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+    height: 100%;
+}
+
+.background {
+    transform:scale(1.5);
+    position: absolute;
+    width: 66.66%;
+    height: 66.66%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    background-image: url('../images/test_car.jpg');
+    opacity: 0.3;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.h3-home {
+    position: absolute;
+    color: white;
+    left: 50px;
+    top: -50px;
+}
+
+.h3-home-user {
+    position: absolute;
+    color: white;
+    left: -200%;
+    top: -90px;
+}
+
+.container {
+    height: auto;
+}
+table, tr, td {
+    border: 1px solid blue;
+}
+.text-style {
+    position: relative;
+    margin-top: 10PX;
+    text-transform: uppercase;
+    font-size: 50px;
+    font-family: 'Catamaran', sans-serif;
+    color:#3b1f26;
+    text-shadow:  #dbb314 1px 1px 1px,#dbb314 1px 1px 1px,#dbb314 1px 1px 1px,
+    #dbb314 1px 1px 1px,#dbb314 1px 1px 1px,#dbb314 1px 1px 1px, black -1px -1px 1px,
+    black -1px -1px 1px,  black -1px -1px 1px,  black -1px -1px 1px;
+}
+
+.buttons {
+    display: flex;
+}
+
+.btn {
+    margin: 20px;
+    position: relative;
+    display: inline-block;
+    margin-top: 5vh;
+    padding: 16px 48px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #f5da70;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+    border: solid 1px black;
+    border-bottom: solid 1px black;
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.6) 
+        inset 0 -1px 0 0 rgba(0,0,0,0.4);
+    border-radius: 10px;
+    cursor: pointer;
+    background: white;
+    background: linear-gradient(to bottom, #3b1f26, rgb(48, 6, 6));
+}
+
+.btn:hover{
+    color:#cfb961;
+    background: linear-gradient(to bottom, #241317, rgb(27, 3, 3));
+}
+
+.btn-user {
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    transform: translate(-50%);
+    display: inline-block;
+    margin-top: 5vh;
+    padding: 12px 38px;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #f5da70;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+    border: solid 1px black;
+    border-bottom: solid 1px black;
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,0.6) 
+        inset 0 -1px 0 0 rgba(0,0,0,0.4);
+    border-radius: 10px;
+    cursor: pointer;
+    background: white;
+    background: linear-gradient(to bottom, #3b1f26, rgb(48, 6, 6));
+}
+
+.container_data { 
+    position: relative; 
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../images/rainy_car.jpg);
+    background-size: cover;
+}
+
+.container_data::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.80);
+}
+
+.container_data::after {
+    content: "";
+}
+
+.form-container {
+    top: 100px;
+    position: relative;
+    text-align: center;
+}
+
+form {
+    padding: 10px;
+    display: flex;
+}
+
+.logdata {
+    width: 1600px;
+    background-color: rgba(0, 0, 0, 0.6);
+    margin: auto;
+    color: white;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.left {
+    width: 800px;
+}
+
+.right {
+    width: 800px;
+}
+
+.main {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 1600px;
+    margin: auto;
+}
+
+#weather {
+    width: 100%;
+    height: 50px;
+}
+
+.weather {
+    margin-left: 25px;
+    margin-top: 40px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.condition {
+    position: relative;
+    left: -60px;
+    top: -37px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.temperature {
+    position: relative;
+    left: 150px;
+    top: -80px;
+    width: 100px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-weather {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    left: -300px;
+    top: -76px;
+}
+
+.label-temperature {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -120px;
+    left: 45px;
+}
+
+#driver {
+    width: 100%;
+    height: 50px;
+}
+
+.driver {
+    margin-left: 25px;
+    margin-top: 40px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.driver-field {
+    position: relative;
+    left: -103px;
+    top: -37px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-driver {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -75px;
+    left: -345px;
+}
+
+#tires{
+    width: 100%;
+    height: 60px;
+}
+
+.tires {
+    margin-left: 25px;
+    margin-top: 40px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.tires-field {
+    position: relative;
+    left: -95px;
+    top: -37px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-tires {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -75px;
+    left: -345px;
+}
+
+.radio {
+    display: block;
+    flex-direction: column;
+    position: relative;
+    left: 400px;
+    top: -80px;
+    width: 100px;
+    font-size: 16px;
+}
+
+.radio_tires {
+    color: white;
+}
+
+#location{
+    width: 100%;
+    height: 60px;
+}
+
+.location {
+    margin-left: 25px;
+    margin-top: 40px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.location-field {
+    position: relative;
+    top: -37px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-location {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    left: -240px;
+    font-size: 14px;
+    top: -75px;
+}
+
+.track-field {
+    position: relative;
+    left: -20px;
+    top: -37px;
+    line-height: 40px;
+    width: 100px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-track {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -75px;
+    left: -120px;
+}
+
+#fastest {
+    width: 100%;
+    height: 50px;
+}
+
+.fastest {
+    margin-left: 25px;
+    margin-top: 25px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.fastest-field {
+    position: relative;
+    top: -37px;
+    left: -77px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-fastest {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -75px;
+    left: -320px;
+}
+
+#soft-eng {
+    width: 100%;
+    height: 50px;
+}
+
+.soft-eng {
+    margin-left: 25px;
+    margin-top: 40px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.engine {
+    position: relative;
+    left: -102px;
+    top: -37px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.software {
+    position: relative;
+    left: 150px;
+    top: -80px;
+    width: 100px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-engine {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    left: -345px;
+    top: -76px;
+}
+
+.label-software {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -120px;
+    left: 45px;
+}
+
+#misc {
+    width: 100%;
+    height: 50px;
+}
+
+.misc {
+    margin-left: 25px;
+    margin-top: 120px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.personnel {
+    position: relative;
+    left: -95px;
+    top: -35px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+#misc-load {
+    width: 100%;
+    height: 50px;
+}
+
+.misc-load {
+    margin-left: 25px;
+    margin-top: -100px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.load {
+    position: relative;
+    left: -31%;
+    top: -35px;
+    width: 100px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+.label-personnel {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    left: -335px;
+    top: -75px;
+}
+
+.label-load {
+    position: relative;
+    color: whitesmoke;
+    text-transform: capitalize;
+    font-size: 14px;
+    top: -70px;
+    left: -37%;
+}
+
+#date {
+    width: 100%;
+    height: 60px;
+}
+
+.date {
+    margin-top: 40px;
+    width: 125px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.date-field {
+    position: relative;
+    top: -35px;
+    left: -140px;
+    line-height: 40px;
+    border-radius: 6px;
+    padding: 0 22px;
+    font-size: 16px;
+}
+
+textarea {
+    height: 300px;
+    width: 600px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.btn-submit {
+    position: relative;
+    left: -350px;
+    background: #b9b9b9;
+    width: 150px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: black;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2 ease;
+}
+
+.btn-submit:hover{
+    background-color: rgb(224, 224, 224);
+}
+
+.user-form {
+    display: block;
+}
+
+.create-user {
+    position: absolute;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+}
+
+.create-user h1 {
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 40px 0;
+}
+
+.create-user p {
+    font-size: 20px;
+    margin: 15px 0;
+}
+
+.create-user input {
+    font-size: 14px;
+    padding: 10px 10px;
+    width: 100%;
+    border: 0;
+    border-radius: 5px;
+    outline: none;
+}
+
+.btn-createuser {
+    font-size: 18px;
+    margin: 20px 0;
+    margin-left: 25%;
+    padding: 10px 15px;
+    width: 50%;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.btn-createuser:hover {
+    background-color: rgb(216, 214, 214);
+}
+
+.licensed {
+    display: flex;
+}
+
+.licensed label {
+    padding: 15px 15px;
+}
+
+.licensed input {
+    margin: 15px;
+}
+
+.btn-load {
+    position: relative;
+    left: -32%;
+    top: -35px;
+    background: #b9b9b9;
+    width: 150px;
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: black;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2 ease;
+}
+
+.btn-load:hover{
+    background-color: rgb(224, 224, 224);
+}
