@@ -27,7 +27,7 @@
 				<a href="{% url 'home' %}" class="logo">Trackside Ops</a>
 			</div>
 			<div class="col-md-4" align="left">
-				<h2 align="center">Log Data</h2>
+				<h2 align="center" class="display-6">Log Data</h2>
 			</div>
 		</div>
     </div>
@@ -169,31 +169,34 @@
 			<form action="{% url 'collectdata' %}" method="post">
 				{% csrf_token %}
 				<div class="row">
-					<div class="col-md-6" align="center">
+					<div class="col-md-1" align="right"></div>
+					<div class="col-md-4" align="center">
 						<h3 class="weather">Weather</h3>
-						<input class="condition" type="text" name="weather" placeholder="Required" required>
+						<input class="form-control" type="text" name="weather" placeholder="Required" required>
 					</div>
-					<div class="col-md-6" align="center">
+					<div class="col-md-2" align="right"></div>
+					<div class="col-md-4" align="center">
 						<h3>Temperature</h3>
-						<input class="temperature" type="text" name="temperature" placeholder="Required" required>
+						<input class="form-control" type="text" name="temperature" placeholder="Required" required>
 					</div>
+					<div class="col-md-1" align="right"></div>
 				</div><br>
 				<div class="row">
 					<div class="col-md-6" align="center">
 						<h3 class="driver">Driver</h3>
-						<input class="driver-field" type="text" name="driver" placeholder="Required" required>
+						<input class="form-control" type="text" name="driver" placeholder="Required" required>
 					</div>
 					<div class="col-md-6" align="center">
 						<h3 class="tires">Tires</h3>
-						<input class="tires-field" type="text" name="tires" placeholder="Required" required>
-						<div class="radio">
+						<input class="form-control" type="text" name="tires" placeholder="Required" required>
+						<div class="radio" align="left">
 							<div>
+								<input type="radio" class="form-check-input" name="tire_condition" value="new_set" id="new_set" checked>
 								<label class="radio_tires" for="new">New set</label>
-								<input type="radio" name="tire_condition" value="new_set" id="new_set" checked>
 							</div>
 							<div>
+								<input type="radio" class="form-check-input" name="tire_condition" value="used" id="used">
 								<label class="radio_tires" for="used">Used</label>
-								<input type="radio" name="tire_condition" value="used" id="used">
 							</div>
 						</div>
 					</div>
@@ -201,56 +204,55 @@
 				<div class="row">
 					<div class="col-md-6" align="center">
 						<h3 class="soft-eng">Engine</h3>
-						<input class="engine" type="text" name="engine">
+						<input class="form-control" type="text" name="engine">
 					</div>
 					<div class="col-md-6" align="center">
 						<h3>Software Version</h3>
-						<input class="software" type="text" name="software">
+						<input class="form-control" type="text" name="software">
 					</div>
 				</div><br>
 				<div class="row">
 					<div class="col-md-6" align="center">
 						<h3 class="misc">Personnel</h3>
-						<input class="personnel" type="text" name="personnel" placeholder="Required">
+						<input class="form-control" type="text" name="personnel" placeholder="Required">
 					</div>
 					<div class="col-md-6" align="center">
 						<h3 class="date">Date</h3>
-						<input class="date-field" type="date" id="datetime" name="date"
+						<input class="form-control" type="date" id="datetime" name="date"
 							min="2020-01-01" max="2030-12-31">
 					</div>
 				</div><br>
 				<div class="row">
 					<div class="col-md-6" align="center">
 						<h3 class="location">Location</h3>
-						<input class="location-field" type="text" name="location" placeholder="Required" required>
+						<input class="form-control" type="text" name="location" placeholder="Required" required>
 					</div>
 					<div class="col-md-6" align="center">
 						<h3>Track</h3>
-						<input class="track-field" type="text" name="track">
+						<input class="form-control" type="text" name="track">
 					</div>
 				</div><br>
 				<div class="row">
 					<div class="col-md-6" align="center">
 						<h3 class="fastest">Fast Lap</h3>
-						<input class="fastest-field" type="text" name="fast_lap">
+						<input class="form-control" type="text" name="fast_lap">
 					</div>
 					<div class="col-md-6" align="center">
 						<h3 class="misc-load">Load Entry</h3>
-						<input class="load" type="text" name="entry_id">
+						<input class="form-control" placeholder="Test ID" type="text" name="entry_id">
 						<input type="text" name="method" value="load" style="display: none">
-						<label class="label-load">Test ID</label>
-						<button type="submit" class="btn-load">Load</button>
+						<button type="submit" class="btn btn-primary">Load</button>
 					</div>
 				</div><br>
 				<div class="row">
 					<div class="col-md-6" align="center">
 						<h3 class="comments">Comments</h3>
-						<textarea placeholder="Message" name="comments"></textarea>
+						<textarea placeholder="Message" class="form-control" name="comments"></textarea>
 						<input style="display: none;" type="text" name="update" value="False">
 					</div>
 					<div class="col-md-6" align="center">
 						<br><br>
-						<button type="submit" class="btn-submit">SUBMIT</button>
+						<button type="submit" class="btn btn-primary">SUBMIT</button>
 					</div>
 				</div>
 				</div><br>

@@ -78,7 +78,7 @@ table {
 
 th, td {
   padding: 8px;
-  text-align: center;
+  text-align: left;
   border-bottom: 1px solid #ddd;
   color:#FFFFFF;
   font-family: Verdana, Geneva, Tahoma, sans-serif;

@@ -18,6 +18,10 @@ html{
     height: 100%;
 }
 
+.view_data_background {
+	background-image: url('../images/rainy_car.jpg'	);
+}
+
 .background {
     transform:scale(1.5);
     position: absolute;
