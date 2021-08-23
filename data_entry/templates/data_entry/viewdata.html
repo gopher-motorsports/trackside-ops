@@ -9,6 +9,9 @@
 	<!-- Font awesome CDN -->
 	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 	<!-- Bootstrap CDN -->
+	<!-- BS icons CDN -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<!-- BS 5 -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<!-- end Bootstrap CDN -->
@@ -18,7 +21,9 @@
     <div class="header" style="background-color: #Bcbe25">
 		<div class="row">
 			<div class="col-md-4" align="left">
-				<a href="{% url 'home' %}" class="logo">Trackside Ops</a>
+				<a href="{% url 'home' %}" class="logo"><i class="bi bi-house"></i></a>
+				<a href="{% url 'collectdata' %}" class="logo"><i class="bi bi-plus-lg"></i></a>
+				<a href="{% url 'collectdata' %}" class="logo"><i class="bi bi-people"></i></a>
 			</div>
 			<div class="col-md-4" align="left">
 				<h2 align="center" class="display-6">View/Edit Data</h2>
@@ -30,8 +35,8 @@
     <div class="container" align="center">
 		<!-- Row that contains dropdown and text box -->
 		<div class="row">
-			<div class="col-md-4" align="left"></div>
-			<div class="col-md-2" align="right">
+			<div class="col-md-4" ></div>
+			<div class="col-md-2" >
 				<!-- "Select Field" Dropdown -->
 				<select class="form-select" name="cars" id="fields">
 					<option value="-1">Select a Field</option>
@@ -43,17 +48,18 @@
 					<option value="5">Location</option>
 				</select>
 			</div>
-			<div class="col-md-4" align="left">
+			<div class="col-md-4" >
 				<!-- Text box to filter -->
 				<input class="form-control" onkeyup="filter()" type ="text" id="sandman" name="param" placeholder ="Search">
 			</div>
-			<div class=col-md-2 align="right"></div>
+			<div class=col-md-2 ></div>
 		<!-- End row that contains dropdown and text box -->
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-md-12" >
-				<table width="100%" class="table table-bordered table-hover table-striped" id="spiderman">
+			<div class="col-md-12">
+				<!-- <table class="table table-bordered table-hover table-striped" id="spiderman"> -->
+				<table class="table table-hover" id="spiderman">
 					<tr>
 						<th style="color: #FFFFFF">Date</th>
 						<th style="color: #FFFFFF">Drivers</th>
@@ -61,6 +67,7 @@
 						<th style="color: #FFFFFF">Weather</th>
 						<th style="color: #FFFFFF">Personnel</th>
 						<th style="color: #FFFFFF">Location</th>
+						<th></th>
 					</tr>
 					{% for entry in entries %}
 						<tr>
@@ -71,20 +78,30 @@
 							<td align="left" style="color: #FFFFFF">{{entry.personnel}}</td>
 							<td align="left" style="color: #FFFFFF">{{entry.location}}</td>
 							<td>
-								<div class='btns'>
-									<form action="{%url 'collectdata' %}" method="post">
-										{% csrf_token %}
-										<input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
-										<input type ="text" name="method" style="display: none;" value="load">
-										<input type=image class="btn-edit" src="{% static '/images/edit.png' %}">
-									</form>   
-									<form action="{%url 'view_data' %}" method="post">
-										{% csrf_token %}
-										<input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
-										<input type ="text" name="method" style="display: none;" value="delete">
-										<input type=image class="btn-delete" src="{% static '/images/delete.png' %}">
-									</form>
-								</div>                  
+								<table>
+									<div class='btns'>
+										<tr>
+											<td>
+												<form action="{%url 'collectdata' %}" method="post">
+													{% csrf_token %}
+													<input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
+													<input type ="text" name="method" style="display: none;" value="load">
+													<button class="btn btn-light"><i class="bi bi-pencil-square"></i></button>
+													<!-- <input type=image class="btn-edit" src="{% static '/images/edit.png' %}"> -->
+												</form>
+											</td>
+											<td>
+												<form action="{%url 'view_data' %}" method="post">
+													{% csrf_token %}
+													<input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
+													<input type ="text" name="method" style="display: none;" value="delete">
+													<button class="btn btn-light"><i class="bi bi-trash"></i></button>
+													<!-- <input type=image class="btn-delete" src="{% static '/images/delete.png' %}"> -->
+												</form>
+											</td>
+										</tr>
+									</div>                  
+								</table>
 							</td>
 						</tr>
 					{% endfor %}
@@ -110,6 +127,41 @@
 						tr[i].style.display = "none";
 					}
 				}       
+			}
+		}
+
+		function sortTable() {
+			var table, rows, switching, i, x, y, shouldSwitch;
+			table = document.getElementById("myTable");
+			switching = true;
+			/*Make a loop that will continue until
+			no switching has been done:*/
+			while (switching) {
+				//start by saying: no switching is done:
+				switching = false;
+				rows = table.rows;
+				/*Loop through all table rows (except the
+				first, which contains table headers):*/
+				for (i = 1; i < (rows.length - 1); i++) {
+					//start by saying there should be no switching:
+					shouldSwitch = false;
+					/*Get the two elements you want to compare,
+					one from current row and one from the next:*/
+					x = rows[i].getElementsByTagName("TD")[0];
+					y = rows[i + 1].getElementsByTagName("TD")[0];
+					//check if the two rows should switch place:
+					if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+						//if so, mark as a switch and break the loop:
+						shouldSwitch = true;
+						break;
+					}
+				}
+				if (shouldSwitch) {
+					/*If a switch has been marked, make the switch
+					and mark that a switch has been done:*/
+					rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+					switching = true;
+				}
 			}
 		}
 	</script>

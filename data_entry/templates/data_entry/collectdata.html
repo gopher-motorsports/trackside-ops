@@ -7,6 +7,8 @@
     <title>Trackside - Log Data</title>
     <link rel="stylesheet" href="{% static '/css/main.css' %}">
 	<!-- Bootstrap CDN -->
+	<!-- BS icons CDN -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<!-- end Bootstrap CDN -->
@@ -24,7 +26,8 @@
 	<div class="header" style="background-color: #Bcbe25">
 		<div class="row">
 			<div class="col-md-4" align="left">
-				<a href="{% url 'home' %}" class="logo">Trackside Ops</a>
+				<a href="{% url 'home' %}" class="logo"><i class="bi bi-house"></i></a>
+				<a href="{% url 'view_data' %}" class="logo"><i class="bi bi-book"></i></a>
 			</div>
 			<div class="col-md-4" align="left">
 				<h2 align="center" class="display-6">Log Data</h2>
@@ -43,121 +46,141 @@
 			</form>
 
 			{% elif entry %}
+			<br>
 			<form action="{% url 'collectdata' %}" method="post">
 				{% csrf_token %}
-				<br>
 				<!-- Row 1 -->
 				<div class="row">
-					<div class="col-md-6" align="center" id="weather">
+					<div class="col-md-1" align="right"></div>
+					<div class="col-md-4" align="center" id="weather">
 						<h3 class="weather">Weather</h3>
-						<input class="condition" type="text" name="weather" value="{{entry.weather}}">
+						<input class="form-control" type="text" name="weather" value="{{entry.weather}}">
 						<br>
 					</div>
-					<div class="col-md-6" align="center" id="temperature">
+					<div class="col-md-2"></div>
+					<div class="col-md-4" align="center" id="temperature">
 						<h3 class="temperature">Temperature</h3>
-						<input class="temperature" type="text" name="temperature" value="{{entry.temperature}}">
+						<input class="form-control" type="text" name="temperature" value="{{entry.temperature}}">
 					</div>
+					<div class="col-md-1" align="right"></div>
 				<!-- End row 1 -->
 				</div>
 				<br>
 				<!-- Row 2 -->
 				<div class="row">
 					<br>
-					<div class="col-md-6" align="center" id="driver">
+					<div class="col-md-1" align="left"></div>
+					<div class="col-md-4" align="center" id="driver">
 						<h3 class="driver">Driver</h3>
-						<input class="driver-field" type="text" name="driver" value="{{entry.driver}}">
+						<input class="form-control" type="text" name="driver" value="{{entry.driver}}">
 					</div>
+					<div class="col-md-2"></div>
 					<br>
-					<div class="col-md-6" align="center" id="tires">
+					<div class="col-md-4" align="center" id="tires">
 						<h3 class="tires">Tire Set</h3>
-						<input class="tires-field" type="text" name="tires" value="{{entry.tires}}">
-						<div class="radio">
+						<input class="form-control" type="text" name="tires" value="{{entry.tires}}">
+						<div class="radio" align="left">
 							<div>
+								<input type="radio" class="form-check-input" name="tire_condition" value="new_set" id="new_set" checked>
 								<label class="radio_tires" for="new">New set</label>
-								<input type="radio" name="tire_condition" value="new_set" id="new_set" checked>
 							</div>
 							<div>
+								<input type="radio" class="form-check-input" name="tire_condition" value="used" id="used">
 								<label class="radio_tires" for="used">Used</label>
-								<input type="radio" name="tire_condition" value="used" id="used">
 							</div>
 						</div>
 					</div>
+					<div class="col-md-1" align="right"></div>
 				<!-- End row 2 -->
 				</div>
 				<br>
 				<!-- Row 3 -->
 				<div class="row">
-					<div class="col-md-6" align="center" id="soft-eng">
+					<div class="col-md-1"></div>
+					<div class="col-md-4" align="center" id="soft-eng">
 						<h3 class="soft-eng">Engine</h3>
-						<input class="engine" type="text" name="engine" value={{entry.engine}}>
+						<input class="form-control" type="text" name="engine" value={{entry.engine}}>
 					</div>
-					<div class="col-md-6" align="center">
-						<h3 class="software">Software Version</h3>
-						<input class="software" type="text" name="software" value={{entry.software}}>
+					<div class="col-md-2"></div>
+					<div class="col-md-4" align="center">
+						<h3>Software Version</h3>
+						<input class="form-control" type="text" name="software" value={{entry.software}}>
 					</div>
+					<div class="col-md-1"></div>
 				<!-- End row 3 -->
 				</div>
 				<br>
 				<!-- Row 4 -->
 				<div class="row">
-					<div class="col-md-6" align="center">
+					<div class="col-md-1"></div>
+					<div class="col-md-4" align="center">
 						<h3 class="misc">Personnel</h3>
-						<input class="personnel" type="text" name="personnel" value={{personnel}}>
+						<input class="form-control" type="text" name="personnel" value={{personnel}}>
 					</div>
-					<div class="col-md-6" align="center" id="date">
+					<div class="col-md-2"></div>
+					<div class="col-md-4" align="center" id="date">
 						<h3 class="date">Date</h3>
-						<input class="date-field" type="date" id="datetime" name="date"
-						value={{date}} min="2020-01-01" max="2030-12-31">
+						<input class="form-control" type="date" name="date" value="{{entry.date}}" id="datetime" name="date"
+						value={{date}} min="2010-01-01" max="2030-12-31">
 					</div>
+					<div class="col-md-1"></div>
 				<!-- End row 4 -->
 				</div>
 				<br>
 				<!-- Row 5 -->
 				<div class="row">
-					<div class="col-md-6" align="center" id="location">
+					<div class="col-md-1"></div>
+					<div class="col-md-4" align="center" id="location">
 						<h3 class="location">Location</h3>
-						<input class="location-field" type="text" name="location" value={{entry.location}}>
+						<input class="form-control" type="text" name="location" value="{{entry.location}}">
 					</div>
-					<div class="col-md-6" align="center" id="fast_lap">
+					<div class="col-md-2"></div>
+					<div class="col-md-4" align="center" id="fast_lap">
 						<h3 class="fastest">Fast Lap</h3>
-						<input class="fastest-field" type="text" name="fast_lap" value={{entry.fast_lap}}>
+						<input class="form-control" type="text" name="fast_lap" value={{entry.fast_lap}}>
 					</div>
+					<div class="col-md-1"></div>
 				<!-- End row 5 -->
 				</div>
 				<br>
 				<!-- Row 6 -->
 				<div class="row">
-					<div class="col-md-6" align="center">
+					<div class="col-md-1"></div>
+					<div class="col-md-4" align="center">
 						<h3 class="label-track">Track</h3>
-						<input class="track-field" type="text" name="track" value={{entry.track}}>
+						<input class="form-control" type="text" name="track" value={{entry.track}}>
 					</div>
-					<div class="col-md-6" align="center">
+					<div class="col-md-2"></div>
+					<div class="col-md-4" align="center">
 						<h3 class="comments">Comments</h3>
-						<textarea name="comments" value={{entry.comments}}></textarea>
+						<textarea name="comments" class="form-control" value={{entry.comments}}></textarea>
 					</div>
+					<div class="col-md-1"></div>
 				<!-- End row 6 -->
 				</div>
 				<br>
 				<!-- Row 7 -->
 				<div class="row">
-					<div class="col-md-6" align="center">
+					<div class="col-md-1"></div>
+					<div class="col-md-4" align="center">
 						<form action="{% url 'collectdata' %}" method="post">
 							{% csrf_token %}
 							<div id="misc-load">
 								<h3 class="misc-load">Load Entry</h3>
-								<input class="load" type="text" name="entry_id" value={{entry.id}}>
+								<input class="form-control" type="text" name="entry_id" value={{entry.id}}>
 								<input type="text" name="method" value="load" style="display: none">
-								<label class="label-load">Test ID</label>
-								<button type="submit" class="btn-load">Load</button>
+								<button type="submit" class="btn btn-primary">Load</button>
 							</div>
 						</form>
 					</div>
-					<div class="col-md-6" align="center">
+					<div class="col-md-2"></div>
+					<div class="col-md-4" align="center">
 						<br>
 						<input style="display: none;" type="text" name="method" value="update">
 						<input type="text" name="entry_id" value="{{entry.id}}" style="display: none">
-						<button type="submit" onclick="clicked(event)" class="btn-submit">SUBMIT</button>
+						<button type="submit" onclick="clicked(event)" class="btn btn-primary">SUBMIT</button>
 					</div>
+					<div class="col-md-1"></div>
 				<!-- End row 7 -->
 				</div>
 				<br><br>
@@ -182,11 +205,13 @@
 					<div class="col-md-1" align="right"></div>
 				</div><br>
 				<div class="row">
-					<div class="col-md-6" align="center">
+					<div class="col-md-1" align="left"></div>
+					<div class="col-md-4" align="center">
 						<h3 class="driver">Driver</h3>
 						<input class="form-control" type="text" name="driver" placeholder="Required" required>
 					</div>
-					<div class="col-md-6" align="center">
+					<div class="col-md-2"></div>
+					<div class="col-md-4" align="center">
 						<h3 class="tires">Tires</h3>
 						<input class="form-control" type="text" name="tires" placeholder="Required" required>
 						<div class="radio" align="left">
@@ -200,61 +225,70 @@
 							</div>
 						</div>
 					</div>
+					<div class="col-md-1" align="center"></div>
 				</div><br>
 				<div class="row">
-					<div class="col-md-6" align="center">
+					<div class="col-md-1"></div>
+					<div class="col-md-4" align="center">
 						<h3 class="soft-eng">Engine</h3>
 						<input class="form-control" type="text" name="engine">
 					</div>
-					<div class="col-md-6" align="center">
+					<div class="col-md-2" align="center"></div>
+					<div class="col-md-4" align="center">
 						<h3>Software Version</h3>
 						<input class="form-control" type="text" name="software">
 					</div>
+					<div class="col-md-1"></div>
 				</div><br>
 				<div class="row">
-					<div class="col-md-6" align="center">
+					<div class="col-md-1"></div>
+					<div class="col-md-4" align="center">
 						<h3 class="misc">Personnel</h3>
 						<input class="form-control" type="text" name="personnel" placeholder="Required">
 					</div>
-					<div class="col-md-6" align="center">
+					<div class="col-md-2"></div>
+					<div class="col-md-4" align="center">
 						<h3 class="date">Date</h3>
 						<input class="form-control" type="date" id="datetime" name="date"
-							min="2020-01-01" max="2030-12-31">
+							min="2010-01-01" max="2030-12-31">
 					</div>
+					<div class="col-md-1"></div>
 				</div><br>
 				<div class="row">
-					<div class="col-md-6" align="center">
+					<div class="col-md-1"></div>
+					<div class="col-md-4" align="center">
 						<h3 class="location">Location</h3>
 						<input class="form-control" type="text" name="location" placeholder="Required" required>
 					</div>
-					<div class="col-md-6" align="center">
+					<div class="col-md-2"></div>
+					<div class="col-md-4" align="center">
 						<h3>Track</h3>
 						<input class="form-control" type="text" name="track">
 					</div>
+					<div class="col-md-1"></div>
 				</div><br>
 				<div class="row">
-					<div class="col-md-6" align="center">
+					<div class="col-md-1"></div>
+					<div class="col-md-4" align="center">
 						<h3 class="fastest">Fast Lap</h3>
 						<input class="form-control" type="text" name="fast_lap">
 					</div>
-					<div class="col-md-6" align="center">
-						<h3 class="misc-load">Load Entry</h3>
-						<input class="form-control" placeholder="Test ID" type="text" name="entry_id">
-						<input type="text" name="method" value="load" style="display: none">
-						<button type="submit" class="btn btn-primary">Load</button>
-					</div>
-				</div><br>
-				<div class="row">
-					<div class="col-md-6" align="center">
+					<div class="col-md-2"></div>
+					<div class="col-md-4" align="center">
 						<h3 class="comments">Comments</h3>
 						<textarea placeholder="Message" class="form-control" name="comments"></textarea>
 						<input style="display: none;" type="text" name="update" value="False">
 					</div>
-					<div class="col-md-6" align="center">
-						<br><br>
-						<button type="submit" class="btn btn-primary">SUBMIT</button>
-					</div>
-				</div>
+					<div class="col-md-1"></div>
+				</div><br>
+				<br><br>
+				<div class="row">
+						<div class="col-md-2"></div>
+						<div class="col-md-8" align="center">
+							<button type="submit" class="btn btn-primary btn-lg btn-block">SUBMIT</button>
+						</div>
+						<div class="col-md-2"></div>
+						
 				</div><br>
 			</form>
 			{% endif %}
