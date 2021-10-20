@@ -26,7 +26,7 @@
 				<a href="{% url 'collectdata' %}" class="logo"><i class="bi bi-plus-lg"></i></a>
 			</div>
 			<div class="col-md-4" align="left">
-				<h2 align="center" class="display-6">Trackside Ops</h2>
+				<h2 align="center" class="display-6">View Team</h2>
 			</div>
 		</div>
     </div>
@@ -35,17 +35,21 @@
     <div class="container" align="center">
 		<!-- Row that contains dropdown and text box -->
 		<div class="row">
-			<div class="col-md-4"></div>
-			<div class="col-md-2">
+			<div class="col-md-3"></div>
+			<div class="col-md-1" >
+				<form action="{% url 'create_user' %}">
+					<button action="{% url 'create_user' %}" class="btn btn-light"><i class="bi bi-plus-lg"></i></button>
+				</form>
+			</div>
+			<div class="col-md-2" >
 				<!-- "Select Field" Dropdown -->
-				<select class="form-select" name="cars" id="searchselect">
+				<select class="form-select" name="cars" id="fields">
 					<option value="-1">Select a Field</option>
-					<option value="0">Date</option>
-					<option value="1">Driver</option>
-					<option value="2">Track</option>
-					<option value="3">Weather</option>
-					<option value="4">Personnel</option>
-					<option value="5">Location</option>
+					<option value="0">Name</option>
+					<option value="1">Subteam</option>
+					<option value="2">Email</option>
+					<option value="3">Phone</option>
+					<option value="4">Licensed</option>
 				</select>
 			</div>
 			<div class="col-md-4" >
@@ -57,26 +61,24 @@
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-md-11">
+			<div class="col-md-12">
 				<!-- <table class="table table-bordered table-hover table-striped" id="spiderman"> -->
-				<table class="table table-hover" id="spiderman" onclick="sortTable()">
+				<table class="table table-hover" id="spiderman">
 					<tr>
-						<th style="color: #FFFFFF">Date</th>
-						<th style="color: #FFFFFF">Drivers</th>
-						<th style="color: #FFFFFF">Track</th>
-						<th style="color: #FFFFFF">Weather</th>
-						<th style="color: #FFFFFF">Personnel</th>
-						<th style="color: #FFFFFF">Location</th>
+						<th style="color: #FFFFFF">Name</th>
+						<th style="color: #FFFFFF">Subteam</th>
+						<th style="color: #FFFFFF">Email</th>
+						<th style="color: #FFFFFF">Phone</th>
+						<th style="color: #FFFFFF">Licensed</th>
 						<th></th>
 					</tr>
 					{% for entry in entries %}
 						<tr>
-							<td align="left" style="color: #FFFFFF">{{entry.created_at}}</td>
-							<td align="left" style="color: #FFFFFF">{{entry.driver}}</td>
-							<td align="left" style="color: #FFFFFF">{{entry.track}}</td>
-							<td align="left" style="color: #FFFFFF">{{entry.weather}}</td>
-							<td align="left" style="color: #FFFFFF">{{entry.personnel}}</td>
-							<td align="left" style="color: #FFFFFF">{{entry.location}}</td>
+							<td align="left" style="color: #FFFFFF">{{entry.name}}</td>
+							<td align="left" style="color: #FFFFFF">{{entry.subteam}}</td>
+							<td align="left" style="color: #FFFFFF">{{entry.email}}</td>
+							<td align="left" style="color: #FFFFFF">{{entry.phone}}</td>
+							<td align="left" style="color: #FFFFFF">{{entry.licensed}}</td>
 							<td>
 								<table>
 									<div class='btns'>
@@ -113,7 +115,7 @@
 		function filter() {
 			var input, filter, table, tr, td, i, txtValue, index;
 			input = document.getElementById("sandman");
-			index = document.getElementById("searchselect").value
+			index = document.getElementById("fields").value
 			filter = input.value.toUpperCase();
 			table = document.getElementById("spiderman");
 			tr = table.getElementsByTagName("tr");
@@ -131,9 +133,8 @@
 		}
 
 		function sortTable() {
-			index = document.getElementById("sortcol").value
 			var table, rows, switching, i, x, y, shouldSwitch;
-			table = document.getElementById("spiderman");
+			table = document.getElementById("myTable");
 			switching = true;
 			/*Make a loop that will continue until
 			no switching has been done:*/
@@ -148,8 +149,8 @@
 					shouldSwitch = false;
 					/*Get the two elements you want to compare,
 					one from current row and one from the next:*/
-					x = rows[i].getElementsByTagName("TD")[2];
-					y = rows[i + 1].getElementsByTagName("TD")[2];
+					x = rows[i].getElementsByTagName("TD")[0];
+					y = rows[i + 1].getElementsByTagName("TD")[0];
 					//check if the two rows should switch place:
 					if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
 						//if so, mark as a switch and break the loop:

@@ -176,18 +176,18 @@ def collectData(request):
 
 """
 def viewData(request):
-    if request.method == 'POST':
-        method = request.POST['method']
-        # delete entry from database
-        if method == "delete":
-            entry_id = request.POST['entry_id']
-            Test.objects.filter(id=entry_id).delete()
-            entries = Test.objects.all()
-            context = {'entries': entries}
-            return render(request, 'data_entry/viewdata.html', context)
-        elif method == "filter":
-            param = request.POST['param']
-            hashTable = {
+	if request.method == 'POST':
+		method = request.POST['method']
+		# delete entry from database
+		if method == "delete":
+			entry_id = request.POST['entry_id']
+			Test.objects.filter(id=entry_id).delete()
+			entries = Test.objects.all()
+			context = {'entries': entries}
+			return render(request, 'data_entry/viewdata.html', context)
+		elif method == "filter":
+			param = request.POST['param']
+			hashTable = {
                 "id": "id",
                 "Date": "created_at",
                 "Weather" : "weather",
@@ -204,18 +204,18 @@ def viewData(request):
                 "Created At": "created_at",
                 "Personnel": "personnel"
             }
-            search_param = request.POST['search']
-            d = {
-                hashTable[search_param]: param
-            }
-            entries = Test.objects.filter(**d)
-            context = {'entries': entries}
-            return render(request, 'data_entry/viewdata.html', context)
+			search_param = request.POST['search']
+			d = {
+				hashTable[search_param]: param
+			}
+			entries = Test.objects.filter(**d)
+			context = {'entries': entries}
+		return render(request, 'data_entry/viewdata.html', context)
     # load all entries   
-    else:
-        entries = Test.objects.all()
-        context = {'entries': entries}
-        return render(request, 'data_entry/viewdata.html', context)
+	else:
+		entries = Test.objects.all()
+		context = {'entries': entries}
+		return render(request, 'data_entry/viewdata.html', context)
 
 
 """
@@ -225,6 +225,39 @@ def viewData(request):
     If a POST request is received create a new user. Otherwise, load the create user form
 
 """
+
+def viewTeam(request):
+	if request.method == 'POST':
+		method = request.POST['method']
+		# delete entry from database
+		if method == "delete":
+			entry_id = request.POST['entry_id']
+			Test.objects.filter(id=entry_id).delete()
+			entries = Test.objects.all()
+			context = {'entries': entries}
+			return render(request, 'data_entry/viewdata.html', context)
+		elif method == "filter":
+			param = request.POST['param']
+			hashTable = {
+                "Name": "name",
+                "Subteam": "subteam",
+                "Email" : "email",
+                "Phone": "phone",
+                "Licensed": "licensed",
+            }
+			search_param = request.POST['search']
+			d = {
+				hashTable[search_param]: param
+			}
+			entries = Test.objects.filter(**d)
+			context = {'entries': entries}
+		return render(request, 'data_entry/viewteam.html', context)
+    # load all entries   
+	else:
+		entries = Test.objects.all()
+		context = {'entries': entries}
+		return render(request, 'data_entry/viewteam.html', context)
+
 def createUser(request):
     if request.method == 'POST':
         # Get new user fields

@@ -26,8 +26,9 @@
 	<div class="header" style="background-color: #Bcbe25">
 		<div class="row">
 			<div class="col-md-4" align="left">
-				<a href="{% url 'home' %}" class="logo"><i class="bi bi-house"></i></a>
+				<!-- <a href="{% url 'view_team' %}" class="logo"><i class="bi bi-people"></i></a> -->
 				<a href="{% url 'view_data' %}" class="logo"><i class="bi bi-book"></i></a>
+				<a href="{% url 'collectdata' %}" class="logo"><i class="bi bi-plus-lg"></i></a>
 			</div>
 			<div class="col-md-4" align="left">
 				<h2 align="center" class="display-6">Log Data</h2>
@@ -282,13 +283,25 @@
 					<div class="col-md-1"></div>
 				</div><br>
 				<br><br>
+				<!-- <input class="form-control" type="text" name="entry_id" value={{entry.id}}> -->
 				<div class="row">
-						<div class="col-md-2"></div>
-						<div class="col-md-8" align="center">
+						<div class="col-md-1"></div>
+						<div class="col-md-4">
+							<form action="{% url 'collectdata' %}" method="post">
+								{% csrf_token %}
+								<div id="misc-load">
+									<h3 class="misc-load">Load Entry</h3>
+									<input class="form-control" type="text" name="entry_id" value={{entry.id}}>
+									<input type="text" name="method" value="load" style="display: none">
+									<button type="submit" class="btn btn-primary">Load</button>
+								</div>
+							</form>
+						</div>
+						<div class="col-md-2">
+						<div class="col-md-4" align="center">
 							<button type="submit" class="btn btn-primary btn-lg btn-block">SUBMIT</button>
 						</div>
-						<div class="col-md-2"></div>
-						
+						<div class="col-md-1"></div>
 				</div><br>
 			</form>
 			{% endif %}
