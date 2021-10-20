@@ -2,13 +2,19 @@
 
 body { 
   margin: 0;
+  background-color: #862334;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .header {
   overflow: hidden;
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
+  background-color: #Bcbe25;
   padding: 20px 10px;
+}
+
+.curved {
+	border-radius: 25px;
 }
 
 .header a {
@@ -73,14 +79,12 @@ table {
 
 th, td {
   padding: 8px;
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid #ddd;
+  color:#FFFFFF;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 h1, h2, h3, h4, h5, p {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.btns {
-    display: flex;
+	color: #FFFFFF;
 }

@@ -1,0 +1,6 @@
+<ol>
+<li>Errand route:</li>
+<li>Post office</li>
+<li>Skate park</li>
+<li>Sushi cart</li>
+</ol>
