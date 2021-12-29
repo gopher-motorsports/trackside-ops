@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import Test, Person
+from .models import Drives, Person
 
-class TestSerializer(serializers.HyperlinkedModelSerializer):
+class DrivesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Test
+        model = Drives
         fields = ('weather','temperature','driver','location',
                 'track', 'fast_lap', 'tires', 'tire_condition',
                 'engine', 'software', 'comments','created_at','personnel')

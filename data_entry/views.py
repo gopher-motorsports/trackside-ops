@@ -1,12 +1,12 @@
 from django.shortcuts import render
-from .models import Person, Test
+from .models import Person, Drives
 import datetime
-from .serializers import PersonSerializer, TestSerializer
+from .serializers import PersonSerializer, DrivesSerializer
 from rest_framework import viewsets
 
-class TestViewSet(viewsets.ModelViewSet):
-    queryset = Test.objects.all().order_by('created_at')
-    serializer_class = TestSerializer
+class DrivesViewSet(viewsets.ModelViewSet):
+    queryset = Drives.objects.all().order_by('created_at')
+    serializer_class = DrivesSerializer
 
 class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all().order_by('name')
@@ -40,7 +40,7 @@ def collectData(request):
             # entry is being loaded
             if method == "load":
                 entry_id = request.POST['entry_id']
-                entry = Test.objects.get(id=entry_id)
+                entry = Drives.objects.get(id=entry_id)
                 # format personnel array to a string; needed to display data correctly
                 personnel = entry.personnel
                 personnel = ','.join(personnel)
@@ -59,7 +59,7 @@ def collectData(request):
             # entry is being updated
             else:
                 entry_id = request.POST['entry_id']
-                entry = Test.objects.get(id=entry_id)
+                entry = Drives.objects.get(id=entry_id)
 
                 # update fields
                 entry.weather = request.POST['weather']
@@ -144,7 +144,7 @@ def collectData(request):
                 'personnel': personnel,
             }
 
-            Test.objects.create(
+            Drives.objects.create(
                 weather = weather,
                 temperature = temperature,
                 driver = driver,
@@ -181,8 +181,8 @@ def viewData(request):
 		# delete entry from database
 		if method == "delete":
 			entry_id = request.POST['entry_id']
-			Test.objects.filter(id=entry_id).delete()
-			entries = Test.objects.all()
+			Drives.objects.filter(id=entry_id).delete()
+			entries = Drives.objects.all()
 			context = {'entries': entries}
 			return render(request, 'data_entry/viewdata.html', context)
 		elif method == "filter":
@@ -208,12 +208,12 @@ def viewData(request):
 			d = {
 				hashTable[search_param]: param
 			}
-			entries = Test.objects.filter(**d)
+			entries = Drives.objects.filter(**d)
 			context = {'entries': entries}
 		return render(request, 'data_entry/viewdata.html', context)
     # load all entries   
 	else:
-		entries = Test.objects.all()
+		entries = Drives.objects.all()
 		context = {'entries': entries}
 		return render(request, 'data_entry/viewdata.html', context)
 
@@ -232,8 +232,8 @@ def viewTeam(request):
 		# delete entry from database
 		if method == "delete":
 			entry_id = request.POST['entry_id']
-			Test.objects.filter(id=entry_id).delete()
-			entries = Test.objects.all()
+			Drives.objects.filter(id=entry_id).delete()
+			entries = Drives.objects.all()
 			context = {'entries': entries}
 			return render(request, 'data_entry/viewdata.html', context)
 		elif method == "filter":
@@ -249,12 +249,12 @@ def viewTeam(request):
 			d = {
 				hashTable[search_param]: param
 			}
-			entries = Test.objects.filter(**d)
+			entries = Drives.objects.filter(**d)
 			context = {'entries': entries}
 		return render(request, 'data_entry/viewteam.html', context)
     # load all entries   
 	else:
-		entries = Test.objects.all()
+		entries = Drives.objects.all()
 		context = {'entries': entries}
 		return render(request, 'data_entry/viewteam.html', context)
 
