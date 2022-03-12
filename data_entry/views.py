@@ -1,21 +1,26 @@
-from django.shortcuts import render
-from .models import Person, Test
+from django.shortcuts import render, redirect
+from .models import Person, Drives
 import datetime
-from .serializers import PersonSerializer, TestSerializer
+from .serializers import PersonSerializer, DrivesSerializer
 from rest_framework import viewsets
 
-class TestViewSet(viewsets.ModelViewSet):
-    queryset = Test.objects.all().order_by('created_at')
-    serializer_class = TestSerializer
+
+class DrivesViewSet(viewsets.ModelViewSet):
+    queryset = Drives.objects.all().order_by('created_at')
+    serializer_class = DrivesSerializer
+
 
 class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all().order_by('name')
     serializer_class = PersonSerializer
 
+
 """
     Home Page
 
 """
+
+
 def home(request):
     context = {}
     return render(request, 'data_entry/home.html', context)
@@ -30,6 +35,8 @@ def home(request):
     otherwise load empty data log form
 
 """
+
+
 def collectData(request):
     if request.method == 'POST':
         # if the request contains an entry ID
@@ -40,7 +47,7 @@ def collectData(request):
             # entry is being loaded
             if method == "load":
                 entry_id = request.POST['entry_id']
-                entry = Test.objects.get(id=entry_id)
+                entry = Drives.objects.get(id=entry_id)
                 # format personnel array to a string; needed to display data correctly
                 personnel = entry.personnel
                 personnel = ','.join(personnel)
@@ -48,18 +55,19 @@ def collectData(request):
                 # format date; needed to display correct date
                 date_time_str = str(entry.created_at)
                 date_time_str = date_time_str[:-6]
-                date_time_obj = datetime.datetime.strptime(date_time_str, '%Y-%m-%d %H:%M:%S.%f')
+                date_time_obj = datetime.datetime.strptime(
+                    date_time_str, '%Y-%m-%d %H:%M:%S.%f')
                 date = str(date_time_obj.date())
                 context = {
                     'entry': entry,
                     'personnel': personnel,
                     'date': date,
-                    }
+                }
                 return render(request, 'data_entry/collectdata.html', context)
             # entry is being updated
             else:
                 entry_id = request.POST['entry_id']
-                entry = Test.objects.get(id=entry_id)
+                entry = Drives.objects.get(id=entry_id)
 
                 # update fields
                 entry.weather = request.POST['weather']
@@ -80,9 +88,8 @@ def collectData(request):
                     else:
                         message = 'No user found with name ' + person
                         return render(request, 'data_entry/collectdata.html', {'message': message})
-                
-                entry.personnel = personnel
 
+                entry.personnel = personnel
 
                 context = {
                     'weather': entry.weather,
@@ -104,67 +111,77 @@ def collectData(request):
 
                 message = 'Data has been updated'
                 return render(request, 'data_entry/collectdata.html', {'message': message})
-        
+
         # New entry
         # Get information from fields and create a new database entry
         # Validate users and display a success or an error message
         else:
+            motor_num = request.POST['motor_num']
+            car_type = request.POST['car_type']
+            is_racespec = request.POST['is_racespec']
             weather = request.POST['weather']
-            temperature = request.POST['temperature']
+            # temperature = request.POST['temperature']
+            track_temp = request.POST['track_temp']
+            air_temp = request.POST['air_temp']
             driver = request.POST['driver']
             location = request.POST['location']
+            is_dyno = request.POST['is_dyno']
             track = request.POST['track']
-            fast_lap = request.POST['fast_lap']
             tires = request.POST['tires']
+            # date = request.POST['date']
             tire_condition = request.POST['tire_condition']
             engine = request.POST['engine']
-            software = request.POST['software']
             comments = request.POST['comments']
-            personnel = []
-            for person in request.POST['personnel'].replace(' ', '').split(','):
-                if Person.objects.filter(name=person).exists():
-                    personnel.append(person)
-                else:
-                    message = 'No user found with name ' + person
-                    return render(request, 'data_entry/collectdata.html', {'message': message})
-
+            drive_day_lead = request.POST['drive_day_lead']
 
             context = {
+                'motor_num': motor_num,
+                'car_type': car_type,
+                'is_racespec': is_racespec,
                 'weather': weather,
-                'temperature': temperature,
+                # 'temperature': temperature,
+                'track_temp': track_temp,
+                'air_temp': air_temp,
                 'driver': driver,
                 'location': location,
+                'is_dyno': is_dyno,
                 'track': track,
-                'fast_lap': fast_lap,
+				# 'date': date,
                 'tires': tires,
                 'tire_condition': tire_condition,
                 'engine': engine,
-                'software': software,
                 'comments': comments,
-                'personnel': personnel,
+                'drive_day_lead': drive_day_lead,
             }
 
-            Test.objects.create(
-                weather = weather,
-                temperature = temperature,
-                driver = driver,
-                location = location,
-                track = track,
-                fast_lap = fast_lap,
-                tires = tires,
-                tire_condition = tire_condition,
-                engine = engine,
-                software = software,
-                comments = comments,
-                personnel = personnel
+            Drives.objects.create(
+                motor_num=motor_num,
+                car_type=car_type,
+                is_racespec=is_racespec,
+                weather=weather,
+                # temperature=temperature,
+                air_temp=air_temp,
+                track_temp=track_temp,
+                driver=driver,
+				# date=date,
+                location=location,
+                track=track,
+                is_dyno=is_dyno,
+                tires=tires,
+                tire_condition=tire_condition,
+                engine=engine,
+                comments=comments,
+                drive_day_lead=drive_day_lead
             )
 
             message = 'Data has been recorded'
-            return render(request, 'data_entry/collectdata.html', {'message': message})
-
+            # return render(request, 'data_entry/collectdata.html', {'message': message})
+            return redirect('view_data')
+        # GET REQUEST
     else:
         context = {}
-        return render(request, 'data_entry/collectdata.html', context)
+        return render(request, 'data_entry/enter_drives.html', context)
+
 
 """
     View Data Page
@@ -175,22 +192,24 @@ def collectData(request):
     otherwise load database entries
 
 """
+
+
 def viewData(request):
-	if request.method == 'POST':
-		method = request.POST['method']
-		# delete entry from database
-		if method == "delete":
-			entry_id = request.POST['entry_id']
-			Test.objects.filter(id=entry_id).delete()
-			entries = Test.objects.all()
-			context = {'entries': entries}
-			return render(request, 'data_entry/viewdata.html', context)
-		elif method == "filter":
-			param = request.POST['param']
-			hashTable = {
+    if request.method == 'POST':
+        method = request.POST['method']
+        # delete entry from database
+        if method == "delete":
+            entry_id = request.POST['entry_id']
+            Drives.objects.filter(id=entry_id).delete()
+            entries = Drives.objects.all()
+            context = {'entries': entries}
+            return render(request, 'data_entry/viewdata.html', context)
+        elif method == "filter":
+            param = request.POST['param']
+            hashTable = {
                 "id": "id",
-                "Date": "created_at",
-                "Weather" : "weather",
+                "Date": "date",
+                "Weather": "weather",
                 "Temperature": "temperature",
                 "Driver": "driver",
                 "Location": "location",
@@ -204,18 +223,18 @@ def viewData(request):
                 "Created At": "created_at",
                 "Personnel": "personnel"
             }
-			search_param = request.POST['search']
-			d = {
-				hashTable[search_param]: param
-			}
-			entries = Test.objects.filter(**d)
-			context = {'entries': entries}
-		return render(request, 'data_entry/viewdata.html', context)
-    # load all entries   
-	else:
-		entries = Test.objects.all()
-		context = {'entries': entries}
-		return render(request, 'data_entry/viewdata.html', context)
+            search_param = request.POST['search']
+            d = {
+                hashTable[search_param]: param
+            }
+            entries = Drives.objects.filter(**d)
+            context = {'entries': entries}
+        return render(request, 'data_entry/viewdata.html', context)
+    # load all entries
+    else:
+        entries = Drives.objects.all()
+        context = {'entries': entries}
+        return render(request, 'data_entry/viewdata.html', context)
 
 
 """
@@ -226,37 +245,39 @@ def viewData(request):
 
 """
 
+
 def viewTeam(request):
-	if request.method == 'POST':
-		method = request.POST['method']
-		# delete entry from database
-		if method == "delete":
-			entry_id = request.POST['entry_id']
-			Test.objects.filter(id=entry_id).delete()
-			entries = Test.objects.all()
-			context = {'entries': entries}
-			return render(request, 'data_entry/viewdata.html', context)
-		elif method == "filter":
-			param = request.POST['param']
-			hashTable = {
+    if request.method == 'POST':
+        method = request.POST['method']
+        # delete entry from database
+        if method == "delete":
+            entry_id = request.POST['entry_id']
+            Drives.objects.filter(id=entry_id).delete()
+            entries = Drives.objects.all()
+            context = {'entries': entries}
+            return render(request, 'data_entry/viewdata.html', context)
+        elif method == "filter":
+            param = request.POST['param']
+            hashTable = {
                 "Name": "name",
                 "Subteam": "subteam",
-                "Email" : "email",
+                "Email": "email",
                 "Phone": "phone",
                 "Licensed": "licensed",
             }
-			search_param = request.POST['search']
-			d = {
-				hashTable[search_param]: param
-			}
-			entries = Test.objects.filter(**d)
-			context = {'entries': entries}
-		return render(request, 'data_entry/viewteam.html', context)
-    # load all entries   
-	else:
-		entries = Test.objects.all()
-		context = {'entries': entries}
-		return render(request, 'data_entry/viewteam.html', context)
+            search_param = request.POST['search']
+            d = {
+                hashTable[search_param]: param
+            }
+            entries = Drives.objects.filter(**d)
+            context = {'entries': entries}
+        return render(request, 'data_entry/viewteam.html', context)
+    # load all entries
+    else:
+        entries = Drives.objects.all()
+        context = {'entries': entries}
+        return render(request, 'data_entry/viewteam.html', context)
+
 
 def createUser(request):
     if request.method == 'POST':
@@ -277,18 +298,18 @@ def createUser(request):
 
         # check if email has already been used and return error
         if Person.objects.filter(email=email).exists():
-            return render(request, 'data_entry/createuser.html', {'email':email})
+            return render(request, 'data_entry/createuser.html', {'email': email})
 
         else:
             Person.objects.create(
-                name = name,
-                email = email,
-                subteam = subteam,
-                phone = phone,
-                licensed = licensed,
+                name=name,
+                email=email,
+                subteam=subteam,
+                phone=phone,
+                licensed=licensed,
             )
 
-            return render(request, 'data_entry/createuser.html', {'name':name})
+            return render(request, 'data_entry/createuser.html', {'name': name})
 
     else:
         context = {}

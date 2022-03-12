@@ -8,7 +8,7 @@ body {
 .header {
   overflow: hidden;
   /* background-color: #f1f1f1; */
-  background-color: #Bcbe25;
+  background-color: #d3d3d3;
   padding: 20px 10px;
 }
 
@@ -76,11 +76,15 @@ table {
   object-fit: cover;
 }
 
+.field {
+	font-weight: bold;
+}
+
 th, td {
   padding: 8px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
-  color:#FFFFFF;
+  /* border-bottom: 1px solid #ddd; */
+  /* color:#FFFFFF; */
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 h1, h2, h3, h4, h5, p {
