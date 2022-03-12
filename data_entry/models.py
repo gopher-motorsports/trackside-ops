@@ -14,7 +14,7 @@ class Person(models.Model):
 
 class Drives(models.Model):
     motor_num = models.CharField(max_length=100)
-    car_type = models.BooleanField(default=False)
+    car_type = models.CharField(max_length=10)
     is_racespec = models.BooleanField(default=False)
     weather = models.CharField(max_length=100)
     temperature = models.IntegerField()

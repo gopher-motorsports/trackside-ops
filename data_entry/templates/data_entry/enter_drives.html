@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Trackside - Log Data</title>
+	<link rel="stylesheet" href="{% static '/css/main.css' %}">
+	<!-- Bootstrap CDN -->
+	<!-- BS icons CDN -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<!-- end Bootstrap CDN -->
+	<script src="{% static '/js/script.js' %}"></script>
+	<style>
+		input {
+			border-radius: 25px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="header">
+		<div class="row">
+			<div class="col-md-4" align="left">
+				<!-- <a href="{% url 'view_team' %}" class="logo"><i class="bi bi-people"></i></a> -->
+				<a href="{% url 'view_data' %}" class="logo"><i class="bi bi-book"></i></a>
+				<a href="{% url 'collectdata' %}" class="logo"><i class="bi bi-plus-lg"></i></a>
+			</div>
+			<div class="col-md-4" align="left">
+				<h2 align="center" class="display-6">Log Data</h2>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="main">
+			<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				{% if message %}
+				<h1 class="logdata">{{message}}</h1>
+				<form action="{% url 'collectdata' %}">
+					<input class="btn-user" , type="submit" , value="New Entry">
+				</form>
+				<form action="{% url 'home' %}">
+					<input class="btn-user" , style="margin-top: 100px" type="submit" , value="Home">
+				</form>
+				{% elif entry %}
+				<br>
+				<form action="{% url 'collectdata' %}" method="post">
+					{% csrf_token %}
+				</form>
+				{% else %}
+				<br>
+				<form action="{% url 'collectdata' %}" method="post">
+					{% csrf_token %}
+					<!-- Date -->
+					<!-- <label for="date">Date:</label>
+					<input class="form-control" type="date" id="date" name="date"
+						min="2010-01-01" max="2030-12-31"> -->
+					<div class="row">
+						<!-- Car Type -->
+						<div class="col-md-3">
+							<label for="car_type" class="field">Car Type:</label><br>
+						</div>
+						<div class="col-md-9">
+							<label for="car_type">EV</label>
+							<input type="radio" class="form-check-input" name="car_type" value="EV" id="car_type"><br>
+							<label for="car_type">ICE</label>
+							<input type="radio" class="form-check-input" name="car_type" value="ICE" id="car_type"
+								checked><br>
+						</div>
+					</div><br>
+					
+					<div class="row">
+						<!-- Is Dyno -->
+						<div class="col-md-3">
+							<label for="is_dyno" class="field">Dyno:</label><br>
+						</div>
+						<div class="col-md-9">
+							<label for="is_dyno">True</label>
+							<input type="radio" class="form-check-input" name="is_dyno" value="true" id="is_dyno_true"
+								required><br>
+							<label for="is_racespec">False</label>
+							<input type="radio" class="form-check-input" name="is_dyno" value="False" id="is_dyno_false"
+								required checked><br>
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Is Racespec -->
+						<div class="col-md-3">
+							<label for="is_racespec" class="field">Racespec:</label><br>
+						</div>
+						<div class="col-md-3">
+							<label for="is_racespec">True</label>
+							<input type="radio" class="form-check-input" name="is_racespec" value="true" id="is_racespec_true"
+								required><br>
+							<label for="is_racespec">False</label>
+							<input type="radio" class="form-check-input" name="is_racespec" value="False" id="is_racespec_false"
+								required checked><br>
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Driver -->
+						<div class="col-md-2">
+							<label for="driver" class="field">Driver:</label>
+						</div>
+						<div class="col-md-10">
+							<input type="text" class="form-control" id="driver" name="driver" placeholder="First Last" required>
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Location  -->
+						<div class="col-md-2">
+							<label for="location" class="field">Location:</label>
+						</div>
+						<div class="col-md-10">
+							<select name="location" class="form-select" onchange='CheckLocations(this.value);'>
+								<option value="Amery Airport">Amery Airport</option>
+								<option value="State Fair Lot">State Fair Lot</option>
+								<option value="other">Other</option>
+							</select>
+							<input type="text" class="form-control" placeholder="Enter other location name" name="location"
+								id="location" style='display:none;' />
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Drive Day Leader -->
+						<div class="col-md-3">
+							<label for="drive_day_lead" class="field">Drive Day Lead:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" id="drive_day_lead" name="drive_day_lead"
+								placeholder="First Last" required>
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Track -->
+						<div class="col-md-2">
+							<label for="track" class="field">Track:</label>
+						</div>
+						<div class="col-md-10">
+							<select name="track" class="form-select" onchange='CheckTracks(this.value);'>
+								<option value="Comp Spec Skidpad">Comp Spec Skidpad</option>
+								<option value="Acceleration">Acceleration</option>
+								<option value="Open Loop Autocross">Open Loop Autocross</option>
+								<option value="Close Loop Autocross">Close Loop Autocross</option>
+								<option value="other">Other</option>
+							</select>
+							<input type="text" class="form-control" placeholder="Enter other track name" name="track" id="track"
+								style='display:none;' />
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Weather -->
+						<div class="col-md-2">
+							<label for="weather" class="field">Weather:</label>
+						</div>
+						<div class="col-md-10">
+							<input type="text" class="form-control" name="weather" id="weather" placeholder="Sunny, Windy, Rainy, Cloudy, Icy">
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Air Temperature -->
+						<div class="col-md-3">
+							<label for="air_temperature" class="field">Air Temperature:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="number" class="form-control" name="air_temp" id="air_temperature">
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Track Temperature -->
+						<div class="col-md-3">
+							<label for="track_temperature" class="field">Track Temperature:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="number" class="form-control" name="track_temp" id="track_temperature">
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Tires -->
+						<div class="col-md-3">
+							<label for="tires" class="field">Tires:</label>
+						</div>
+						<div class="col-md-9">
+							<select name="tires" class="form-select" onchange='CheckTires(this.value);'>
+								<option value="R25b">R25b</option>
+								<option value="LC0C">LC0C</option>
+								<option value="other">Other</option>
+							</select>
+							<input type="text" class="form-control" placeholder="Enter other tire name" name="tires" id="tires"
+								style='display:none;' />
+							</div>
+						</div><br>
+					<div class="row">
+						<div class="col-md-3">
+							<label for="tire-serial-num" class="field">Tire Serial Number:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="tire_serial_num" id="tire_serial_num">
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Tire Condition -->
+						<div class="col-md-3">
+							<label for="tire_condition" class="field">Tire Condition:</label><br>
+						</div>
+						<div class="col-md-9">
+							<label for="tire_condition_new">New Set</label>
+							<input type="radio" class="form-check-input" name="tire_condition" id="tire_condition_new"><br>
+							<label for="tire_condition_used">Used Set</label>
+							<input type="radio" class="form-check-input" name="tire_condition" id="tire_condition_used" checked><br>
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Engine -->
+						<div class="col-md-3">
+							<label for="engine" class="field">Engine:</label>
+						</div>
+						<div class="col-md-9">
+							<select name="engine" class="form-select" onchange='CheckEngine(this.value);'>
+								<option value="2003-2005 Yamaha R6">2003-2005 Yamaha R6 (ICE)</option>
+								<option value="Emrax 208">Emrax 208 (EV)</option>
+								<option value="other">Other</option>
+							</select>
+							<input type="text" class="form-control" placeholder="Enter other engine name" name="engine" id="engine"
+								style='display:none;' />
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Motor num -->
+						<div class="col-md-3">
+							<label for="motor_num" class="field">Motor Number:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="motor_num" id="motor_num">
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Comments -->
+						<div class="col-md-3">
+							<label for="comments" class="field">Comments:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="comments" id="comments">
+						</div>
+					</div><br>
+					<!-- entry id -->
+					<!-- <label for="entry_id">entry id:</label> -->
+					<div class="row">
+						<!-- SUBMIT -->
+						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<input type="submit" label="Submit" class="btn btn-primary">
+						</div>
+						<div class="col-md-4"></div>
+					</div><br>
+					<input class="form-control" id="entry_id" type="text" name="entry_id" hidden="true"
+						value={{entry.id}}>
+				</form>
+				{% endif %}
+			</div>
+			<div class="col-md-3"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function CheckLocations(val) {
+			var element = document.getElementById('location');
+			if (val == 'Pick a Location' || val == 'other')
+				element.style.display = 'block';
+			else
+				element.style.display = 'none';
+		}
+		function CheckTracks(val) {
+			var element = document.getElementById('track');
+			if (val == 'Pick a Track' || val == 'other')
+				element.style.display = 'block';
+			else
+				element.style.display = 'none';
+		}
+		function CheckTires(val) {
+			var element = document.getElementById('tires');
+			if (val == 'Pick a Tire' || val == 'other')
+				element.style.display = 'block';
+			else
+				element.style.display = 'none';
+		}
+		function CheckEngine(val) {
+			var element = document.getElementById('engine');
+			if (val == 'Pick an Engine' || val == 'other')
+				element.style.display = 'block';
+			else
+				element.style.display = 'none';
+		}
+	</script>
+</body>
+
+</html>
