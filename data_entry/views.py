@@ -48,10 +48,6 @@ def collectData(request):
             if method == "load":
                 entry_id = request.POST['entry_id']
                 entry = Drives.objects.get(id=entry_id)
-                # format personnel array to a string; needed to display data correctly
-                personnel = entry.personnel
-                personnel = ','.join(personnel)
-
                 # format date; needed to display correct date
                 date_time_str = str(entry.created_at)
                 date_time_str = date_time_str[:-6]
@@ -60,57 +56,60 @@ def collectData(request):
                 date = str(date_time_obj.date())
                 context = {
                     'entry': entry,
-                    'personnel': personnel,
                     'date': date,
                 }
-                return render(request, 'data_entry/collectdata.html', context)
+                return render(request, 'data_entry/edit_drives.html', context)
             # entry is being updated
             else:
                 entry_id = request.POST['entry_id']
                 entry = Drives.objects.get(id=entry_id)
 
                 # update fields
+                entry.motor_num = request.POST['motor_num']
+                entry.car_type = request.POST['car_type']
+                entry.is_racespec = request.POST['is_racespec']
                 entry.weather = request.POST['weather']
-                entry.temperature = request.POST['temperature']
+                entry.track_temp = request.POST['track_temp']
+                entry.air_temp = request.POST['air_temp']
                 entry.driver = request.POST['driver']
                 entry.location = request.POST['location']
+                entry.is_dyno = request.POST['is_dyno']
                 entry.track = request.POST['track']
-                entry.fast_lap = request.POST['fast_lap']
                 entry.tires = request.POST['tires']
+                entry.tire_serial_number = request.POST['tire_serial_number']
+                entry.date = request.POST['date']
                 entry.tire_condition = request.POST['tire_condition']
                 entry.engine = request.POST['engine']
-                entry.software = request.POST['software']
                 entry.comments = request.POST['comments']
-                personnel = []
-                for person in request.POST['personnel'].replace(' ', '').split(','):
-                    if Person.objects.filter(name=person).exists():
-                        personnel.append(person)
-                    else:
-                        message = 'No user found with name ' + person
-                        return render(request, 'data_entry/collectdata.html', {'message': message})
-
-                entry.personnel = personnel
+                entry.drive_day_lead = request.POST['drive_day_lead']
 
                 context = {
+                    'motor_num': entry.motor_num,
+                    'car_type': entry.car_type,
+                    'is_racespec': entry.is_racespec,
                     'weather': entry.weather,
-                    'temperature': entry.temperature,
+                    # 'temperature': entry.temperature,
+                    'track_temp': entry.track_temp,
+                    'air_temp': entry.air_temp,
                     'driver': entry.driver,
                     'location': entry.location,
+                    'is_dyno': entry.is_dyno,
                     'track': entry.track,
-                    'fast_lap': entry.fast_lap,
+                    'date': entry.date,
                     'tires': entry.tires,
+                    'tire_serial_number': entry.tire_serial_number,
                     'tire_condition': entry.tire_condition,
                     'engine': entry.engine,
-                    'software': entry.software,
                     'comments': entry.comments,
-                    'personnel': entry.personnel,
+                    'drive_day_lead': entry.drive_day_lead,
                 }
 
                 # save updated entry
                 entry.save()
 
-                message = 'Data has been updated'
-                return render(request, 'data_entry/collectdata.html', {'message': message})
+                # message = 'Data has been updated'
+                # return render(request, 'data_entry/collectdata.html', {'message': message})
+                return redirect('view_data')
 
         # New entry
         # Get information from fields and create a new database entry
@@ -120,7 +119,6 @@ def collectData(request):
             car_type = request.POST['car_type']
             is_racespec = request.POST['is_racespec']
             weather = request.POST['weather']
-            # temperature = request.POST['temperature']
             track_temp = request.POST['track_temp']
             air_temp = request.POST['air_temp']
             driver = request.POST['driver']
@@ -128,11 +126,14 @@ def collectData(request):
             is_dyno = request.POST['is_dyno']
             track = request.POST['track']
             tires = request.POST['tires']
-            # date = request.POST['date']
+            tire_serial_number = request.POST['tire_serial_number']
+            date = request.POST['date']
             tire_condition = request.POST['tire_condition']
             engine = request.POST['engine']
             comments = request.POST['comments']
             drive_day_lead = request.POST['drive_day_lead']
+
+            print("TRACK IS", track)
 
             context = {
                 'motor_num': motor_num,
@@ -146,8 +147,9 @@ def collectData(request):
                 'location': location,
                 'is_dyno': is_dyno,
                 'track': track,
-				# 'date': date,
+                'date': str(date),
                 'tires': tires,
+                'tire_serial_number': tire_serial_number,
                 'tire_condition': tire_condition,
                 'engine': engine,
                 'comments': comments,
@@ -159,15 +161,15 @@ def collectData(request):
                 car_type=car_type,
                 is_racespec=is_racespec,
                 weather=weather,
-                # temperature=temperature,
                 air_temp=air_temp,
                 track_temp=track_temp,
                 driver=driver,
-				# date=date,
+                date=date,
                 location=location,
                 track=track,
                 is_dyno=is_dyno,
                 tires=tires,
+                tire_serial_number=tire_serial_number,
                 tire_condition=tire_condition,
                 engine=engine,
                 comments=comments,

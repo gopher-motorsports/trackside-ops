@@ -1,0 +1,14 @@
+Johnny Rajan 3/20/2022
+
+HOW TO MAKE MIGRATIONS:
+1. Open PG ADMIN
+2. Delete the table that you want to modify
+3. Delete all rows from django_migrations table where app is "data_entry"
+SQL for that: 
+DELETE FROM django_migrations WHERE app = 'data_entry';
+4. Delete all files and folders inside the migrations folder inside data_entry folder
+5. Enter the following command to the command line (this is for windows. Linux or Mac will vary)
+py manage.py makemigrations data_entry
+6. enter the following command to the command line (this is for windows. Linux or Mac will vary)
+py manage.py migrate data_entry
+7. Refresh pgadmin and check if tables are updated

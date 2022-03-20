@@ -63,20 +63,20 @@
 					<tr>
 						<th onclick="sortTable(0)">Date</th>
 						<th onclick="sortTable(1)">Drivers</th>
-						<th onclick="sortTable(2)">Track</th>
-						<th onclick="sortTable(3)">Weather</th>
-						<th onclick="sortTable(4)">Personnel</th>
-						<th onclick="sortTable(5)">Location</th>
+						<th onclick="sortTable(2)">Drive Day Lead</th>
+						<th onclick="sortTable(3)">Car Type</th>
+						<th onclick="sortTable(4)">Track</th>
+						<th onclick="sortTable(5)">Engine</th>
 						<th></th>
 					</tr>
 					{% for entry in entries %}
 						<tr>
-							<td align="left" >{{entry.created_at}}</td>
+							<td align="left" >{{entry.date}}</td>
 							<td align="left" >{{entry.driver}}</td>
+							<td align="left" >{{entry.drive_day_lead}}</td>
 							<td align="left" >{{entry.car_type}}</td>
-							<td align="left" >{{entry.weather}}</td>
-							<td align="left" >{{entry.personnel}}</td>
-							<td align="left" >{{entry.location}}</td>
+							<td align="left" >{{entry.track}}</td>
+							<td align="left" >{{entry.engine}}</td>
 							<td>
 								<table>
 									<div class='btns'>
@@ -86,17 +86,61 @@
 													{% csrf_token %}
 													<input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
 													<input type ="text" name="method" style="display: none;" value="load">
-													<button class="btn btn-light"><i class="bi bi-pencil-square"></i></button>
-													<!-- <input type=image class="btn-edit" src="{% static '/images/edit.png' %}"> -->
+													<button class="btn bi-pencil-square"></button>
 												</form>
+											</td>
+											<td>
+												<button type="button" class="btn bi-info-circle" data-bs-toggle="modal" data-bs-target="#drive_info"></button>
+												<!-- Modal -->
+												<div class="modal fade" id="drive_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLongTitle">View Details </h5>
+															<button type="button" class="btn bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														<div class="modal-body">
+															<b>Date:</b> {{entry.date}}<br>
+															<b>Car Type:</b> {{entry.car_type}}<br>
+															<b>Driver:</b> {{entry.driver}}<br>
+															<b>Drive Day Lead:</b> {{entry.drive_day_lead}}<br>
+															<b>Dyno:</b> {{entry.is_dyno}}<br>
+															<b>RaceSpec:</b> {{entry.is_racespec}}<br>
+															<b>Location:</b> {{entry.location}}<br>
+															<b>Track:</b> {{entry.track}}<br>
+															<b>Weather:</b> {{entry.weather}}<br>
+															<b>Air Temperature:</b> {{entry.air_temp}}<br>
+															<b>Track Temperature:</b> {{entry.track_temp}}<br>
+															<b>Tires:</b> {{entry.tires}}<br>
+															<b>Tire Serial Number:</b> {{entry.tire_serial_number}}<br>
+															<b>Engine:</b> {{entry.engine}}<br>
+															<b>Motor Number:</b> {{entry.motor_num}}<br>
+															<b>Comments:</b> {{entry.comments}}<br>
+														</div>
+														<div class="modal-footer">
+															<form action="{%url 'collectdata' %}" method="post">
+																{% csrf_token %}
+																<input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
+																<input type ="text" name="method" style="display: none;" value="load">
+																<button id="edit-modal" class="btn bi-pencil-square"></button>
+															</form>
+															<form action="{%url 'view_data' %}" method="post">
+																{% csrf_token %}
+																<input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
+																<input type ="text" name="method" style="display: none;" value="delete">
+																<button class="btn bi-trash"></button>
+															</form>
+														</div>
+													</div>
+													</div>
+												</div>
 											</td>
 											<td>
 												<form action="{%url 'view_data' %}" method="post">
 													{% csrf_token %}
 													<input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
 													<input type ="text" name="method" style="display: none;" value="delete">
-													<button class="btn btn-light"><i class="bi bi-trash"></i></button>
-													<!-- <input type=image class="btn-delete" src="{% static '/images/delete.png' %}"> -->
+													<button class="btn bi-trash" data-bs-toggle="modal" data-bs-target="#confirm_delete"></button>
 												</form>
 											</td>
 										</tr>
