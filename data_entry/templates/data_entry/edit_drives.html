@@ -16,15 +16,71 @@
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
 	<!-- end Bootstrap CDN -->
-	<script src="{% static '/js/script.js' %}"></script>
+	<!-- <script src="{% static '/js/script.js' %}"></script> -->
 	<style>
 		input {
 			border-radius: 25px;
 		}
 	</style>
+	<script>
+		function set_fields() {
+			document.getElementById('date').value="{{entry.date}}";
+			if ("{{entry.car_type}}" == "EV") {
+				document.getElementById('car_type_ev').checked = true;
+				document.getElementById('car_type_ice').checked = false;
+			} else {
+				document.getElementById('car_type_ev').checked = false;
+				document.getElementById('car_type_ice').checked = true;
+			}
+			if ("{{entry.is_dyno}}".toLowerCase() == "true") {
+				document.getElementById('is_dyno_true').checked = true;
+				document.getElementById('is_dyno_false').checked = false;
+			} else {
+				document.getElementById('is_dyno_true').checked = false;
+				document.getElementById('is_dyno_false').checked = true;
+			}
+			if ("{{entry.is_racespec}}".toLowerCase() == "true") {
+				document.getElementById('is_racespec_true').checked = true;
+				document.getElementById('is_racespec_false').checked = false;
+			} else {
+				document.getElementById('is_racespec_true').checked = false;
+				document.getElementById('is_racespec_false').checked = true;
+			}
+			document.getElementById('driver').value = "{{entry.driver}}";
+			document.getElementById('location_select').value = "{{entry.location}}";
+			document.getElementById('drive_day_lead').value = "{{entry.drive_day_lead}}";
+			if (["Comp Spec Skidpad", "Acceleration", "Open Loop Autocross", "Close Loop Autocross"].includes("{{entry.track}}")) {
+				document.getElementById('track_select').value = "{{entry.track}}"
+				console.log("HERE")
+				console.log(document.getElementById('track_select').value)
+			} else {
+				document.getElementById('track_select').value = "other";
+				document.getElementById('track').value = "{{entry.track}}";
+				console.log("HERE insetad")
+			}
+			document.getElementById('track_select').value = "{{entry.track}}";
+			document.getElementById('weather').value = "{{entry.weather}}";
+			document.getElementById('air_temperature').value = "{{entry.air_temp}}";
+			document.getElementById('track_temperature').value = "{{entry.track_temp}}";
+			document.getElementById('air_temperature').value = "{{entry.air_temp}}";
+			document.getElementById('tire_select').value = "{{entry.tires}}";
+			document.getElementById('tire_serial_num').value = "{{entry.tire_serial_number}}";
+			if ("{{entry.tire_condition}}".toLowerCase() == "Used Set") {
+				document.getElementById('tire_condition_used').checked = true;
+				document.getElementById('tire_conditio_new').checked = false;
+			} else {
+				document.getElementById('tire_condition_used').checked = false;
+				document.getElementById('tire_condition_new').checked = true;
+			}
+			document.getElementById('engine_select').value = "{{entry.engine}}";
+			document.getElementById('motor_num').value = "{{entry.motor_num}}";
+			document.getElementById('comments').value = "{{entry.comments}}";
+
+		}
+	</script>
 </head>
 
-<body>
+<body onload="set_fields()">
 	<div class="header">
 		<div class="row">
 			<div class="col-md-4" align="left">
@@ -33,7 +89,7 @@
 				<a href="{% url 'collectdata' %}" class="logo"><i class="bi bi-plus-lg"></i></a>
 			</div>
 			<div class="col-md-4" align="left">
-				<h2 align="center" class="display-6">Log Data</h2>
+				<h2 align="center" class="display-6">Edit Data</h2>
 			</div>
 		</div>
 	</div>
@@ -42,27 +98,19 @@
 			<div class="row">
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
-				{% if message %}
-				<h1 class="logdata">{{message}}</h1>
-				<form action="{% url 'collectdata' %}">
-					<input class="btn-user" , type="submit" , value="New Entry">
-				</form>
-				<form action="{% url 'home' %}">
-					<input class="btn-user" , style="margin-top: 100px" type="submit" , value="Home">
-				</form>
-				{% elif entry %}
-				<br>
 				<form action="{% url 'collectdata' %}" method="post">
+					<br>
 					{% csrf_token %}
-				</form>
-				{% else %}
-				<br>
-				<form action="{% url 'collectdata' %}" method="post">
-					{% csrf_token %}
-					<!-- Date -->
-					<label class="field" for="date">Date:</label>
-					<input class="form-control" type="date" id="date" name="date"
-						min="2010-01-01" max="2030-12-31">
+					<div class="row">
+						<!-- Date -->
+						<div class="col-md-3">
+							<label class="field" for="date">Date:</label>
+						</div>
+						<div class="col-md-9">
+							<input class="form-control" type="date" id="date" name="date"
+								min="2010-01-01" max="2030-12-31"><br>
+						</div>
+					</div><br>
 					<div class="row">
 						<!-- Car Type -->
 						<div class="col-md-3">
@@ -70,9 +118,9 @@
 						</div>
 						<div class="col-md-9">
 							<label for="car_type">EV</label>
-							<input type="radio" class="form-check-input" name="car_type" value="EV" id="car_type"><br>
+							<input type="radio" class="form-check-input" name="car_type" value="EV" id="car_type_ev"><br>
 							<label for="car_type">ICE</label>
-							<input type="radio" class="form-check-input" name="car_type" value="ICE" id="car_type"
+							<input type="radio" class="form-check-input" name="car_type" value="ICE" id="car_type_ice"
 								checked><br>
 						</div>
 					</div><br>
@@ -111,7 +159,7 @@
 							<label for="driver" class="field">Driver:</label>
 						</div>
 						<div class="col-md-10">
-							<input type="text" class="form-control" id="driver" name="driver" placeholder="First Last" required>
+							<input type="text" class="form-control" id="driver" name="driver" placeholder="First Last"  required>
 						</div>
 					</div><br>
 					<div class="row">
@@ -257,10 +305,18 @@
 						<!-- SUBMIT -->
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
+							<input style="display: none;" type="text" name="method" value="update">
+							<input type="text" name="entry_id" value="{{entry.id}}" style="display: none">
 							<input type="submit" label="Submit" class="btn btn-primary" onclick="
-								document.getElementById('track').value = document.getElementById('track_select').value;
-								document.getElementById('tires').value = document.getElementById('tire_select').value;
-								document.getElementById('engine').value = document.getElementById('engine_select').value;
+								if (document.getElementById('track_select').value.toLowerCase() != 'other') {
+									document.getElementById('track').value = document.getElementById('track_select').value;
+								}
+								if (document.getElementById('tire_select').value.toLowerCase() != 'other') {
+									document.getElementById('tires').value = document.getElementById('tire_select').value;
+								}
+								if (document.getElementById('engine_select').value.toLowerCase() != 'other') {
+									document.getElementById('engine').value = document.getElementById('engine_select').value;
+								}
 								document.getElementById('location').value = document.getElementById('location_select').value;
 							">
 						</div>
@@ -269,7 +325,6 @@
 					<input class="form-control" id="entry_id" type="text" name="entry_id" hidden="true"
 						value={{entry.id}}>
 				</form>
-				{% endif %}
 			</div>
 			<div class="col-md-3"></div>
 			</div>

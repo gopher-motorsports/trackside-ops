@@ -56,7 +56,7 @@ ROOT_URLCONF = 'trackside_ops.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["../data_entry/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
