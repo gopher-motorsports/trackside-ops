@@ -59,10 +59,16 @@
 				<br>
 				<form action="{% url 'collectdata' %}" method="post">
 					{% csrf_token %}
-					<!-- Date -->
-					<label class="field" for="date">Date:</label>
-					<input class="form-control" type="date" id="date" name="date"
-						min="2010-01-01" max="2030-12-31">
+					<div class="row">
+						<!-- Date -->
+						<div class="col-md-3">
+							<label class="field" for="date">Date:</label>
+						</div>
+						<div class="col-md-9">
+							<input class="form-control" type="date" id="date" name="date"
+								min="2010-01-01" max="2030-12-31">
+						</div>
+					</div><br>
 					<div class="row">
 						<!-- Car Type -->
 						<div class="col-md-3">
@@ -84,7 +90,7 @@
 						</div>
 						<div class="col-md-9">
 							<label for="is_dyno">True</label>
-							<input type="radio" class="form-check-input" name="is_dyno" value="true" id="is_dyno_true"
+							<input type="radio" class="form-check-input" name="is_dyno" value="True" id="is_dyno_true"
 								required><br>
 							<label for="is_racespec">False</label>
 							<input type="radio" class="form-check-input" name="is_dyno" value="False" id="is_dyno_false"
@@ -98,7 +104,7 @@
 						</div>
 						<div class="col-md-3">
 							<label for="is_racespec">True</label>
-							<input type="radio" class="form-check-input" name="is_racespec" value="true" id="is_racespec_true"
+							<input type="radio" class="form-check-input" name="is_racespec" value="True" id="is_racespec_true"
 								required><br>
 							<label for="is_racespec">False</label>
 							<input type="radio" class="form-check-input" name="is_racespec" value="False" id="is_racespec_false"

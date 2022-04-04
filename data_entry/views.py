@@ -133,7 +133,6 @@ def collectData(request):
             comments = request.POST['comments']
             drive_day_lead = request.POST['drive_day_lead']
 
-            print("TRACK IS", track)
 
             context = {
                 'motor_num': motor_num,

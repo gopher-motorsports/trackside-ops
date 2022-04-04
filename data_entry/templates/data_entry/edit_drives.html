@@ -47,23 +47,24 @@
 				document.getElementById('is_racespec_false').checked = true;
 			}
 			document.getElementById('driver').value = "{{entry.driver}}";
-			document.getElementById('location_select').value = "{{entry.location}}";
+			document.getElementById('location').value = "{{entry.location}}";
 			document.getElementById('drive_day_lead').value = "{{entry.drive_day_lead}}";
-			if (["Comp Spec Skidpad", "Acceleration", "Open Loop Autocross", "Close Loop Autocross"].includes("{{entry.track}}")) {
-				document.getElementById('track_select').value = "{{entry.track}}"
-				console.log("HERE")
-				console.log(document.getElementById('track_select').value)
-			} else {
-				document.getElementById('track_select').value = "other";
-				document.getElementById('track').value = "{{entry.track}}";
-				console.log("HERE insetad")
-			}
-			document.getElementById('track_select').value = "{{entry.track}}";
+			// if (["Comp Spec Skidpad", "Acceleration", "Open Loop Autocross", "Close Loop Autocross"].includes("{{entry.track}}")) {
+			// 	document.getElementById('track_select').value = "{{entry.track}}"
+			// 	console.log("HERE")
+			// 	console.log(document.getElementById('track_select').value)
+			// } else {
+			// 	document.getElementById('track_select').value = "other";
+			// 	document.getElementById('track').value = "{{entry.track}}";
+			// 	console.log("HERE insetad")
+			// }
+			document.getElementById('track').hidden = false;
+			document.getElementById('track').value = "{{entry.track}}";
 			document.getElementById('weather').value = "{{entry.weather}}";
 			document.getElementById('air_temperature').value = "{{entry.air_temp}}";
 			document.getElementById('track_temperature').value = "{{entry.track_temp}}";
 			document.getElementById('air_temperature').value = "{{entry.air_temp}}";
-			document.getElementById('tire_select').value = "{{entry.tires}}";
+			document.getElementById('tires').value = "{{entry.tires}}";
 			document.getElementById('tire_serial_num').value = "{{entry.tire_serial_number}}";
 			if ("{{entry.tire_condition}}".toLowerCase() == "Used Set") {
 				document.getElementById('tire_condition_used').checked = true;
@@ -72,7 +73,7 @@
 				document.getElementById('tire_condition_used').checked = false;
 				document.getElementById('tire_condition_new').checked = true;
 			}
-			document.getElementById('engine_select').value = "{{entry.engine}}";
+			document.getElementById('engine').value = "{{entry.engine}}";
 			document.getElementById('motor_num').value = "{{entry.motor_num}}";
 			document.getElementById('comments').value = "{{entry.comments}}";
 
@@ -168,13 +169,8 @@
 							<label for="location" class="field">Location:</label>
 						</div>
 						<div class="col-md-10">
-							<select id="location_select" name="location" class="form-select" onchange='CheckLocations(this.value);'>
-								<option value="Amery Airport">Amery Airport</option>
-								<option value="State Fair Lot">State Fair Lot</option>
-								<option value="other">Other</option>
-							</select>
 							<input type="text" class="form-control" placeholder="Enter other location name" name="location"
-								id="location" style='display:none;' />
+								id="location"` />
 						</div>
 					</div><br>
 					<div class="row">
@@ -193,15 +189,8 @@
 							<label for="track" class="field">Track:</label>
 						</div>
 						<div class="col-md-10">
-							<select id="track_select" name="track" class="form-select" onchange='CheckTracks(this.value);'>
-								<option value="Comp Spec Skidpad">Comp Spec Skidpad</option>
-								<option value="Acceleration">Acceleration</option>
-								<option value="Open Loop Autocross">Open Loop Autocross</option>
-								<option value="Close Loop Autocross">Close Loop Autocross</option>
-								<option value="other">Other</option>
-							</select>
 							<input type="text" class="form-control" placeholder="Enter other track name" name="track" id="track"
-								style='display:none;' />
+								 />
 						</div>
 					</div><br>
 					<div class="row">
@@ -237,13 +226,8 @@
 							<label for="tires" class="field">Tires:</label>
 						</div>
 						<div class="col-md-9">
-							<select id="tire_select" name="tires" class="form-select" onchange='CheckTires(this.value);'>
-								<option value="R25b">R25b</option>
-								<option value="LC0C">LC0C</option>
-								<option value="other">Other</option>
-							</select>
 							<input type="text" class="form-control" placeholder="Enter other tire name" name="tires" id="tires"
-								style='display:none;' />
+								 />
 							</div>
 						</div><br>
 					<div class="row">
@@ -272,13 +256,8 @@
 							<label for="engine" class="field">Engine:</label>
 						</div>
 						<div class="col-md-9">
-							<select id="engine_select" name="engine" class="form-select" onchange='CheckEngine(this.value);'>
-								<option value="2003-2005 Yamaha R6">2003-2005 Yamaha R6 (ICE)</option>
-								<option value="Emrax 208">Emrax 208 (EV)</option>
-								<option value="other">Other</option>
-							</select>
 							<input type="text" class="form-control" placeholder="Enter other engine name" name="engine" id="engine"
-								style='display:none;' />
+								 />
 						</div>
 					</div><br>
 					<div class="row">

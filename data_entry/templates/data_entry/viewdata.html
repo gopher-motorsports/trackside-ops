@@ -42,10 +42,10 @@
 					<option value="-1">Select a Field</option>
 					<option value="0">Date</option>
 					<option value="1">Driver</option>
-					<option value="2">Track</option>
-					<option value="3">Weather</option>
-					<option value="4">Personnel</option>
-					<option value="5">Location</option>
+					<option value="2">Drive Day Lead</option>
+					<option value="3">Car Type</option>
+					<option value="4">Track</option>
+					<option value="5">Engine</option>
 				</select>
 			</div>
 			<div class="col-md-4" >
@@ -62,7 +62,7 @@
 				<table class="table table-striped  table-hover" id="dataTable">
 					<tr>
 						<th onclick="sortTable(0)">Date</th>
-						<th onclick="sortTable(1)">Drivers</th>
+						<th onclick="sortTable(1)">Driver</th>
 						<th onclick="sortTable(2)">Drive Day Lead</th>
 						<th onclick="sortTable(3)">Car Type</th>
 						<th onclick="sortTable(4)">Track</th>
@@ -116,6 +116,7 @@
 															<b>Engine:</b> {{entry.engine}}<br>
 															<b>Motor Number:</b> {{entry.motor_num}}<br>
 															<b>Comments:</b> {{entry.comments}}<br>
+															<b>Created At:</b> {{entry.created_at}}<br>
 														</div>
 														<div class="modal-footer">
 															<form action="{%url 'collectdata' %}" method="post">
