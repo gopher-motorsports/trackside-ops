@@ -60,6 +60,15 @@
 				<form action="{% url 'collectdata' %}" method="post">
 					{% csrf_token %}
 					<div class="row">
+						<!-- Flagged -->
+						<div class="col-md-3">
+							<label for="flagged" class="field">FLAGGED:</label><br>
+						</div>
+						<div class="col-md-9">
+							<input type="checkbox" class="form-check-input" name="flagged" value="True" id="flagged"><br>
+						</div>
+					</div><br>
+					<div class="row">
 						<!-- Date -->
 						<div class="col-md-3">
 							<label class="field" for="date">Date:</label>
@@ -67,65 +76,82 @@
 						<div class="col-md-9">
 							<input class="form-control" type="date" id="date" name="date"
 								min="2010-01-01" max="2030-12-31">
-						</div>
+						</div><br>
 					</div><br>
 					<div class="row">
-						<!-- Car Type -->
+						<!-- Time -->
 						<div class="col-md-3">
-							<label for="car_type" class="field">Car Type:</label><br>
+							<label class="field" for="date">Start Time:</label>
 						</div>
 						<div class="col-md-9">
-							<label for="car_type">EV</label>
-							<input type="radio" class="form-check-input" name="car_type" value="EV" id="car_type"><br>
-							<label for="car_type">ICE</label>
-							<input type="radio" class="form-check-input" name="car_type" value="ICE" id="car_type"
-								checked><br>
-						</div>
+							<input class="form-control" type="time" id="time" name="time">
+						</div><br>
 					</div><br>
-					
 					<div class="row">
-						<!-- Is Dyno -->
+						<!-- Chassis -->
 						<div class="col-md-3">
-							<label for="is_dyno" class="field">Dyno:</label><br>
+							<label for="chassis" class="field">Chassis:</label><br>
 						</div>
 						<div class="col-md-9">
-							<label for="is_dyno">True</label>
-							<input type="radio" class="form-check-input" name="is_dyno" value="True" id="is_dyno_true"
-								required><br>
-							<label for="is_racespec">False</label>
-							<input type="radio" class="form-check-input" name="is_dyno" value="False" id="is_dyno_false"
-								required checked><br>
+							<select id="chassis" name="chassis" class="form-select">
+								<option value="ICE">ICE</option>
+								<option value="EV">EV</option>
+							</select>
 						</div>
 					</div><br>
 					<div class="row">
-						<!-- Is Racespec -->
+						<!-- Car -->
 						<div class="col-md-3">
-							<label for="is_racespec" class="field">Racespec:</label><br>
+							<label for="car" class="field">Car:</label><br>
 						</div>
-						<div class="col-md-3">
-							<label for="is_racespec">True</label>
-							<input type="radio" class="form-check-input" name="is_racespec" value="True" id="is_racespec_true"
-								required><br>
-							<label for="is_racespec">False</label>
-							<input type="radio" class="form-check-input" name="is_racespec" value="False" id="is_racespec_false"
-								required checked><br>
+						<div class="col-md-9">
+							<select id="car" name="car" class="form-select" onchange='CheckDyno(this.value);'>
+								<option value="G04-20c">G04-20c</option>
+								<option value="G04-22e">G04-22e</option>
+								<option value="G04-20c">G04-22c</option>
+								<option value="Dyno">Dyno</option>
+							</select>
 						</div>
 					</div><br>
 					<div class="row">
 						<!-- Driver -->
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<label for="driver" class="field">Driver:</label>
 						</div>
-						<div class="col-md-10">
+						<div class="col-md-9">
 							<input type="text" class="form-control" id="driver" name="driver" placeholder="First Last" required>
 						</div>
 					</div><br>
 					<div class="row">
+					<!-- Motor -->
+					<div class="col-md-3">
+						<label for="motor" class="field">Motor:</label>
+					</div>
+					<div class="col-md-9">
+						<select id="motor_select" name="motor" class="form-select" onchange='CheckMotor(this.value);'>
+							<option value="2003-2005 Yamaha R6">2003-2005 Yamaha R6 (ICE)</option>
+							<option value="Emrax 208">Emrax 208 (EV)</option>
+							<option value="other">Other</option>
+						</select>
+						<input type="text" class="form-control" placeholder="Enter other Motor name" name="motor" id="motor"
+							style='display:none;' />
+					</div>
+					</div><br>
+					<!--motor Setup Comments -->
+					<div class="row">
+						<div class="col-md-3">
+							<label for="motor_comments" class="field">Comments on motor Setup:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="motor_comments" id="motor_comments">
+						</div>
+					</div><br>
+					<div class="row">
 						<!-- Location  -->
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<label for="location" class="field">Location:</label>
 						</div>
-						<div class="col-md-10">
+						<div class="col-md-9">
 							<select id="location_select" name="location" class="form-select" onchange='CheckLocations(this.value);'>
 								<option value="Amery Airport">Amery Airport</option>
 								<option value="State Fair Lot">State Fair Lot</option>
@@ -147,10 +173,10 @@
 					</div><br>
 					<div class="row">
 						<!-- Track -->
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<label for="track" class="field">Track:</label>
 						</div>
-						<div class="col-md-10">
+						<div class="col-md-9">
 							<select id="track_select" name="track" class="form-select" onchange='CheckTracks(this.value);'>
 								<option value="Comp Spec Skidpad">Comp Spec Skidpad</option>
 								<option value="Acceleration">Acceleration</option>
@@ -159,15 +185,15 @@
 								<option value="other">Other</option>
 							</select>
 							<input type="text" class="form-control" placeholder="Enter other track name" name="track" id="track"
-								style='display:none;' />
+							style='display:none;' />
 						</div>
 					</div><br>
 					<div class="row">
 						<!-- Weather -->
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<label for="weather" class="field">Weather:</label>
 						</div>
-						<div class="col-md-10">
+						<div class="col-md-9">
 							<input type="text" class="form-control" name="weather" id="weather" placeholder="Sunny, Windy, Rainy, Cloudy, Icy">
 						</div>
 					</div><br>
@@ -190,12 +216,45 @@
 						</div>
 					</div><br>
 					<div class="row">
+						<!-- Track Temperature Unit -->
+						<div class="col-md-3">
+							<label for="track_temperature_unit" class="field">Farenheit or Celcius:</label>
+						</div>
+						<div class="col-md-9">
+							<select id="track_temperature_unit" name="tires" class="form-select">
+								<option value="F">F</option> 
+								<option value="C">C</option>
+							</select>
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Wind Direction -->
+						<div class="col-md-3">
+							<label for="wind_direction" class="field">Wind Direction:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" id="wind_direction" name="wind_direction"
+								placeholder="NW, N, SE, S, etc." required>
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Wind Speed -->
+						<div class="col-md-3">
+							<label for="wind_speed" class="field">Wind Speed (mph):</label>
+						</div>
+						<div class="col-md-9">
+							<input type="number" class="form-control" id="wind_speed" name="wind_speed" min="0"
+								placeholder="ex. 69mph" required>
+						</div>
+					</div><br>
+					<div class="row">
 						<!-- Tires -->
 						<div class="col-md-3">
 							<label for="tires" class="field">Tires:</label>
 						</div>
 						<div class="col-md-9">
 							<select id="tire_select" name="tires" class="form-select" onchange='CheckTires(this.value);'>
+								<option value="R20">R20</option> 
 								<option value="R25b">R25b</option>
 								<option value="LC0C">LC0C</option>
 								<option value="other">Other</option>
@@ -204,48 +263,97 @@
 								style='display:none;' />
 							</div>
 						</div><br>
+						<!-- Front-Left Tire Serial Number -->
 					<div class="row">
 						<div class="col-md-3">
-							<label for="tire-serial-num" class="field">Tire Serial Number:</label>
+							<label for="fl-tire-serial-num" class="field">Front-Left Tire Serial Number:</label>
 						</div>
 						<div class="col-md-9">
-							<input type="text" class="form-control" name="tire_serial_number" id="tire_serial_num">
+							<input type="text" class="form-control" name="fl_tire_serial_number" id="fl_tire_serial_num">
 						</div>
 					</div><br>
 					<div class="row">
-						<!-- Tire Condition -->
+						<!-- Front-Left Tire Condition -->
 						<div class="col-md-3">
-							<label for="tire_condition" class="field">Tire Condition:</label><br>
+							<label for="fl_tire_condition" class="field">Front-Left Tire Condition:</label><br>
 						</div>
 						<div class="col-md-9">
-							<label for="tire_condition_new">New Set</label>
-							<input type="radio" class="form-check-input" name="tire_condition" value="New Set" id="tire_condition_new"><br>
-							<label for="tire_condition_used">Used Set</label>
-							<input type="radio" class="form-check-input" name="tire_condition" value="Used Set" id="tire_condition_used" checked><br>
+							<label for="fl_tire_condition_new">New Set</label>
+							<input type="radio" class="form-check-input" name="fl_tire_condition" value="New Set" id="fl_tire_condition_new"><br>
+							<label for="fl_tire_condition_used">Used Set</label>
+							<input type="radio" class="form-check-input" name="fl_tire_condition" value="Used Set" id="fl_tire_condition_used" checked><br>
+						</div>
+					</div><br>
+						<!-- Front-Right Tire Serial Number -->
+					<div class="row">
+						<div class="col-md-3">
+							<label for="fr-tire-serial-num" class="field">Front-Right Tire Serial Number:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="fr_tire_serial_number" id="fr_tire_serial_num">
 						</div>
 					</div><br>
 					<div class="row">
-						<!-- Engine -->
+						<!-- Front-Left Tire Condition -->
 						<div class="col-md-3">
-							<label for="engine" class="field">Engine:</label>
+							<label for="fr_tire_condition" class="field">Front-Right Tire Condition:</label><br>
 						</div>
 						<div class="col-md-9">
-							<select id="engine_select" name="engine" class="form-select" onchange='CheckEngine(this.value);'>
-								<option value="2003-2005 Yamaha R6">2003-2005 Yamaha R6 (ICE)</option>
-								<option value="Emrax 208">Emrax 208 (EV)</option>
-								<option value="other">Other</option>
-							</select>
-							<input type="text" class="form-control" placeholder="Enter other engine name" name="engine" id="engine"
-								style='display:none;' />
+							<label for="fr_tire_condition_new">New Set</label>
+							<input type="radio" class="form-check-input" name="fr_tire_condition" value="New Set" id="fr_tire_condition_new"><br>
+							<label for="fr_tire_condition_used">Used Set</label>
+							<input type="radio" class="form-check-input" name="fr_tire_condition" value="Used Set" id="fr_tire_condition_used" checked><br>
+						</div>
+					</div><br>
+						<!-- Back-Left Tire Serial Number -->
+					<div class="row">
+						<div class="col-md-3">
+							<label for="bl-tire-serial-num" class="field">Back-Left Tire Serial Number:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="bl_tire_serial_number" id="bl_tire_serial_num">
 						</div>
 					</div><br>
 					<div class="row">
-						<!-- Motor num -->
+						<!-- Back-Left Tire Condition -->
 						<div class="col-md-3">
-							<label for="motor_num" class="field">Motor Number:</label>
+							<label for="bl_tire_condition" class="field">Back-Left Tire Condition:</label><br>
 						</div>
 						<div class="col-md-9">
-							<input type="text" class="form-control" name="motor_num" id="motor_num">
+							<label for="bl_tire_condition_new">New Set</label>
+							<input type="radio" class="form-check-input" name="bl_tire_condition" value="New Set" id="bl_tire_condition_new"><br>
+							<label for="bl_tire_condition_used">Used Set</label>
+							<input type="radio" class="form-check-input" name="bl_tire_condition" value="Used Set" id="bl_tire_condition_used" checked><br>
+						</div>
+					</div><br>
+						<!-- Back-Right Tire Serial Number -->
+					<div class="row">
+						<div class="col-md-3">
+							<label for="br-tire-serial-num" class="field">Back-Right Tire Serial Number:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="br_tire_serial_number" id="br_tire_serial_num">
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Back-Left Tire Condition -->
+						<div class="col-md-3">
+							<label for="br_tire_condition" class="field">Back-Right Tire Condition:</label><br>
+						</div>
+						<div class="col-md-9">
+							<label for="br_tire_condition_new">New Set</label>
+							<input type="radio" class="form-check-input" name="br_tire_condition" value="New Set" id="br_tire_condition_new"><br>
+							<label for="br_tire_condition_used">Used Set</label>
+							<input type="radio" class="form-check-input" name="br_tire_condition" value="Used Set" id="br_tire_condition_used" checked><br>
+						</div>
+					</div><br>
+					<!-- Link to Data File -->
+					<div class="row">
+						<div class="col-md-3">
+							<label for="data_file_link" class="field">Link to Data File:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" class="form-control" name="data_file_link" id="data_file_link">
 						</div>
 					</div><br>
 					<div class="row">
@@ -266,7 +374,7 @@
 							<input type="submit" label="Submit" class="btn btn-primary" onclick="
 								document.getElementById('track').value = document.getElementById('track_select').value;
 								document.getElementById('tires').value = document.getElementById('tire_select').value;
-								document.getElementById('engine').value = document.getElementById('engine_select').value;
+								document.getElementById('motor').value = document.getElementById('motor_select').value;
 								document.getElementById('location').value = document.getElementById('location_select').value;
 							">
 						</div>
@@ -303,12 +411,37 @@
 			else
 				element.style.display = 'none';
 		}
-		function CheckEngine(val) {
-			var element = document.getElementById('engine');
-			if (val == 'Pick an Engine' || val == 'other')
+		function CheckMotor(val) {
+			var element = document.getElementById('motor');
+			if (val == 'Pick a Motor' || val == 'other')
 				element.style.display = 'block';
 			else
 				element.style.display = 'none';
+		}
+		function CheckDyno(val) {
+			console.log("STARTIGN WITH " + val);
+			if (val == 'Dyno') {
+				document.getElementById('track_select').disabled = true;
+				document.getElementById('track_select').value = "Dyno";
+				document.getElementById('weather').disabled = true;
+				document.getElementById('weather').value = "Dyno";
+				document.getElementById('air_temperature').disabled = true;
+				document.getElementById('track_temperature').disabled = true;
+				document.getElementById('track_temperature_unit').disabled = true;
+				document.getElementById('wind_direction').disabled = true;
+				document.getElementById('wind_speed').disabled = true;
+				document.getElementById('location_select').disabled = true;
+				document.getElementById('location_select').value = "Dyno";
+			} else {
+				document.getElementById('track_select').disabled = false;
+				document.getElementById('weather').disabled = false;
+				document.getElementById('air_temperature').disabled = false;
+				document.getElementById('track_temperature').disabled = false;
+				document.getElementById('track_temperature_unit').disabled = false;
+				document.getElementById('wind_direction').disabled = false;
+				document.getElementById('wind_speed').disabled = false;
+				document.getElementById('location_select').disabled = false;
+			}
 		}
 	</script>
 </body>
