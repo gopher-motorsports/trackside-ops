@@ -52,7 +52,7 @@ def collectData(request):
                 date_time_str = str(entry.created_at)
                 date_time_str = date_time_str[:-6]
                 date_time_obj = datetime.datetime.strptime(
-                    date_time_str, '%Y-%m-%d %H:%M:%S.%f')
+                    date_time_str, '%Y-%m-%d %H:%M:%S')
                 date = str(date_time_obj.date())
                 context = {
                     'entry': entry,
