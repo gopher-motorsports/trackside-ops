@@ -76,6 +76,9 @@ table {
   margin-right: 5%;
   object-fit: cover;
 }
+.modal-body {
+	font-size: 70px;
+}
 
 th, td {
   padding: 8px;

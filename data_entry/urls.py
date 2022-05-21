@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.viewData, name='home'),
     path('collectdata', views.collectData, name='collectdata'),
     path('view_data', views.viewData, name='view_data'),
+    path('filter_data', views.filter_data, name='filter_data'),
     path('create_user', views.createUser, name='create_user'),
 	path('view_team', views.viewTeam, name="view_team"),
     path('api/', include(router.urls)),

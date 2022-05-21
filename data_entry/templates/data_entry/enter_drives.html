@@ -216,12 +216,12 @@
 						</div>
 					</div><br>
 					<div class="row">
-						<!-- Track Temperature Unit -->
+						<!-- Temperature Unit -->
 						<div class="col-md-3">
-							<label for="track_temperature_unit" class="field">Farenheit or Celcius:</label>
+							<label for="temperature_unit" class="field">Farenheit or Celcius:</label>
 						</div>
 						<div class="col-md-9">
-							<select id="track_temperature_unit" name="tires" class="form-select">
+							<select id="temperature_unit" name="temperature_unit" class="form-select">
 								<option value="F">F</option> 
 								<option value="C">C</option>
 							</select>
@@ -266,7 +266,7 @@
 						<!-- Front-Left Tire Serial Number -->
 					<div class="row">
 						<div class="col-md-3">
-							<label for="fl-tire-serial-num" class="field">Front-Left Tire Serial Number:</label>
+							<label for="fl_tire_serial_num" class="field">Front-Left Tire Serial Number:</label>
 						</div>
 						<div class="col-md-9">
 							<input type="text" class="form-control" name="fl_tire_serial_number" id="fl_tire_serial_num">
@@ -287,7 +287,7 @@
 						<!-- Front-Right Tire Serial Number -->
 					<div class="row">
 						<div class="col-md-3">
-							<label for="fr-tire-serial-num" class="field">Front-Right Tire Serial Number:</label>
+							<label for="fr_tire_serial_num" class="field">Front-Right Tire Serial Number:</label>
 						</div>
 						<div class="col-md-9">
 							<input type="text" class="form-control" name="fr_tire_serial_number" id="fr_tire_serial_num">
@@ -308,7 +308,7 @@
 						<!-- Back-Left Tire Serial Number -->
 					<div class="row">
 						<div class="col-md-3">
-							<label for="bl-tire-serial-num" class="field">Back-Left Tire Serial Number:</label>
+							<label for="bl_tire_serial_num" class="field">Back-Left Tire Serial Number:</label>
 						</div>
 						<div class="col-md-9">
 							<input type="text" class="form-control" name="bl_tire_serial_number" id="bl_tire_serial_num">
@@ -329,7 +329,7 @@
 						<!-- Back-Right Tire Serial Number -->
 					<div class="row">
 						<div class="col-md-3">
-							<label for="br-tire-serial-num" class="field">Back-Right Tire Serial Number:</label>
+							<label for="br_tire_serial_num" class="field">Back-Right Tire Serial Number:</label>
 						</div>
 						<div class="col-md-9">
 							<input type="text" class="form-control" name="br_tire_serial_number" id="br_tire_serial_num">
@@ -365,8 +365,6 @@
 							<input type="text" class="form-control" name="comments" id="comments">
 						</div>
 					</div><br>
-					<!-- entry id -->
-					<!-- <label for="entry_id">entry id:</label> -->
 					<div class="row">
 						<!-- SUBMIT -->
 						<div class="col-md-4"></div>
@@ -427,7 +425,7 @@
 				document.getElementById('weather').value = "Dyno";
 				document.getElementById('air_temperature').disabled = true;
 				document.getElementById('track_temperature').disabled = true;
-				document.getElementById('track_temperature_unit').disabled = true;
+				document.getElementById('temperature_unit').disabled = true;
 				document.getElementById('wind_direction').disabled = true;
 				document.getElementById('wind_speed').disabled = true;
 				document.getElementById('location_select').disabled = true;
@@ -437,7 +435,7 @@
 				document.getElementById('weather').disabled = false;
 				document.getElementById('air_temperature').disabled = false;
 				document.getElementById('track_temperature').disabled = false;
-				document.getElementById('track_temperature_unit').disabled = false;
+				document.getElementById('temperature_unit').disabled = false;
 				document.getElementById('wind_direction').disabled = false;
 				document.getElementById('wind_speed').disabled = false;
 				document.getElementById('location_select').disabled = false;

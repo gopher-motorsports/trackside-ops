@@ -35,48 +35,78 @@
     <div class="container" align="center">
 		<!-- Row that contains dropdown and text box -->
 		<div class="row">
-			<div class="col-md-4"></div>
-			<div class="col-md-2">
-				<!-- "Select Field" Dropdown -->
-				<select class="form-select" name="cars" id="searchselect">
-					<option value="-1">Select a Field</option>
-					<option value="0">Date</option>
-					<option value="1">Driver</option>
-					<option value="2">Drive Day Lead</option>
-					<option value="3">Car Type</option>
-					<option value="4">Track</option>
-					<option value="5">Engine</option>
-				</select>
-			</div>
-			<div class="col-md-4" >
-				<!-- Text box to filter -->
-				<input class="form-control" onkeyup="filter()" type ="text" id="filter_box" name="param" placeholder ="Search">
-			</div>
-			<div class=col-md-2 ></div>
+			<form action="{%url 'filter_data' %}" method="post">
+				{% csrf_token %}
+				<div class="col-md-3"></div>
+				<div class="col-md-2">
+					<!-- "Select Field" Dropdown -->
+					<select class="form-select" name="field" id="searchselect">
+						<option value="">Select a Field</option>
+						<option value="flagged">Flagged</option>
+						<option value="date">Date</option>
+						<option value="time">Timetime</option>
+						<option value="chassis">Chassis</option>
+						<option value="car">Car</option>
+						<option value="driver">Driver</option>
+						<option value="motor">Motor</option>
+						<option value="motor_comments">Motor Comments</option>
+						<option value="location">Location</option>
+						<option value="drive_day_lead">Drive Day Lead</option>
+						<option value="track">Track</option>
+						<option value="weather">Weather</option>
+						<option value="air_temp">Air Temperature</option>
+						<option value="track_temp">Track Temperature</option>
+						<option value="temperature_unit">Temperature Unit</option>
+						<option value="wind_direction">Wind Direction</option>
+						<option value="wind_speed">Wind Speed</option>
+						<option value="tires">Tires</option>
+						<option value="fl_tire_serial_number">Front Left Tire Serial Number</option>
+						<option value="fl_tire_condition">Front Left Tire Condition</option>
+						<option value="fr_tire_serial_number">Front Right Tire Serial Number</option>
+						<option value="fr_tire_condition">Front Right Tire Condition</option>
+						<option value="bl_tire_serial_number">Back Left Tire Serial Number</option>
+						<option value="bl_tire_condition">Back Left Tire Condition</option>
+						<option value="br_tire_serial_number">Back Right Tire Serial Number</option>
+						<option value="br_tire_condition">Back Right Tire Condition</option>
+						<option value="data_file_link">Data File Link</option>
+						<option value="comments">Comments</option>
+						<option value="created_at">Created At</option>
+					</select>
+				</div>
+				<div class="col-md-4" >
+					<!-- Text box to filter -->
+					<input class="form-control" type ="text" id="filter_box" name="param" placeholder ="Search">
+				</div>
+				<div class=col-md-2 >
+					<button class="bi bi-search btn btn-primary" type="submit"></button>
+				</div>
+			</form>
 		<!-- End row that contains dropdown and text box -->
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-md-11">
-				<!-- <table class="table table-bordered table-hover table-striped" id="dataTable"> -->
 				<table class="table table-striped  table-hover" id="dataTable">
 					<tr>
 						<th onclick="sortTable(0)">Date</th>
 						<th onclick="sortTable(1)">Driver</th>
-						<th onclick="sortTable(2)">Drive Day Lead</th>
-						<th onclick="sortTable(3)">Car Type</th>
+						<th onclick="sortTable(2)">Car</th>
+						<th onclick="sortTable(3)">Location</th>
 						<th onclick="sortTable(4)">Track</th>
-						<th onclick="sortTable(5)">Engine</th>
 						<th></th>
 					</tr>
 					{% for entry in entries %}
+					{% if entry.is_deleted == False %}
+						{%if entry.flagged == True%}
+						<tr class="table-danger">
+						{% else %}
 						<tr>
-							<td align="left" >{{entry.date}}</td>
+						{%endif%}
+							<td align="left" >{{entry.date}} {{entry.time}}</td>
 							<td align="left" >{{entry.driver}}</td>
-							<td align="left" >{{entry.drive_day_lead}}</td>
-							<td align="left" >{{entry.car_type}}</td>
+							<td align="left" >{{entry.car}}</td>
+							<td align="left" >{{entry.location}}</td>
 							<td align="left" >{{entry.track}}</td>
-							<td align="left" >{{entry.engine}}</td>
 							<td>
 								<table>
 									<div class='btns'>
@@ -99,24 +129,130 @@
 															<h5 class="modal-title" id="exampleModalLongTitle">View Details </h5>
 															<button type="button" class="btn bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></button>
 														</div>
+														
 														<div class="modal-body">
-															<b>Date:</b> {{entry.date}}<br>
-															<b>Car Type:</b> {{entry.car_type}}<br>	
-															<b>Driver:</b> {{entry.driver}}<br>
-															<b>Drive Day Lead:</b> {{entry.drive_day_lead}}<br>
-															<b>Dyno:</b> {{entry.is_dyno}}<br>
-															<b>RaceSpec:</b> {{entry.is_racespec}}<br>
-															<b>Location:</b> {{entry.location}}<br>
-															<b>Track:</b> {{entry.track}}<br>
-															<b>Weather:</b> {{entry.weather}}<br>
-															<b>Air Temperature:</b> {{entry.air_temp}}<br>
-															<b>Track Temperature:</b> {{entry.track_temp}}<br>
-															<b>Tires:</b> {{entry.tires}}<br>
-															<b>Tire Serial Number:</b> {{entry.tire_serial_number}}<br>
-															<b>Engine:</b> {{entry.engine}}<br>
-															<b>Motor Number:</b> {{entry.motor_num}}<br>
-															<b>Comments:</b> {{entry.comments}}<br>
-															<b>Created At:</b> {{entry.created_at}}<br>
+															<table>
+																<tr>
+																	<td>
+																		<b>flagged:</b> {{entry.flagged}}
+																	</td>
+																	<td>
+																		<b>date:</b> {{entry.date}}
+																		
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>time:</b> {{entry.time}}
+																	</td>
+																	<td>
+																		<b>chassis:</b> {{entry.chassis}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>car:</b> {{entry.car}}
+																	</td>
+																	<td>
+																		<b>driver:</b> {{entry.driver}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>motor:</b> {{entry.motor}}
+																	</td>
+																	<td>
+																		<b>motor_comments:</b> {{entry.motor_comments}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>location:</b> {{entry.location}}
+																	</td>
+																	<td>
+																		<b>drive_day_lead:</b> {{entry.drive_day_lead}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>track:</b> {{entry.track}}
+																	</td>
+																	<td>
+																		<b>weather:</b> {{entry.weather}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>air_temp:</b> {{entry.air_temp}}
+																	</td>
+																	<td>
+																		<b>track_temp:</b> {{entry.track_temp}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>temperature_unit:</b> {{entry.temperature_unit}}
+																	</td>
+																	<td>
+																		<b>wind_direction:</b> {{entry.wind_direction}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>wind_speed:</b> {{entry.wind_speed}}
+																	</td>
+																	<td>
+																		<b>tires:</b> {{entry.tires}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>fl_tire_serial_number:</b> {{entry.fl_tire_serial_number}}
+																	</td>
+																	<td>
+																		<b>fl_tire_condition:</b> {{entry.fl_tire_condition}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>fr_tire_serial_number:</b> {{entry.fr_tire_serial_number}}
+																	</td>
+																	<td>
+																		<b>fr_tire_condition:</b> {{entry.fr_tire_condition}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>bl_tire_serial_number:</b> {{entry.bl_tire_serial_number}}
+																	</td>
+																	<td>
+																		<b>bl_tire_condition:</b> {{entry.bl_tire_condition}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>br_tire_serial_number:</b> {{entry.br_tire_serial_number}}
+																	</td>
+																	<td>
+																		<b>br_tire_condition:</b> {{entry.br_tire_condition}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<a href="{{entry.data_file_link}}"><b>Data File Link</b></a>
+																	</td>
+																	<td>
+																		<b>comments:</b> {{entry.comments}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>created_at:</b> {{entry.created_at}}
+																	</td>
+																	<td>
+																	</td>
+																</tr>
+															</table>
 														</div>
 														<div class="modal-footer">
 															<form action="{%url 'collectdata' %}" method="post">
@@ -137,18 +273,165 @@
 												</div>
 											</td>
 											<td>
-												<form action="{%url 'view_data' %}" method="post">
+												<button type="button" class="btn bi-trash" data-bs-toggle="modal" data-bs-target="#modal_{{entry.id}}_del"></button>
+												<!-- Modal -->
+												<div class="modal fade" id="modal_{{entry.id}}_del" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+													<div class="modal-dialog" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete </h5>
+															<button type="button" class="btn bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></button>
+														</div>
+														
+														<div class="modal-body">
+															<b>This action cannot be undone.</b><br>
+															<table>
+																<tr>
+																	<td>
+																		<b>flagged:</b> {{entry.flagged}}
+																	</td>
+																	<td>
+																		<b>date:</b> {{entry.date}}
+																		
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>time:</b> {{entry.time}}
+																	</td>
+																	<td>
+																		<b>chassis:</b> {{entry.chassis}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>car:</b> {{entry.car}}
+																	</td>
+																	<td>
+																		<b>driver:</b> {{entry.driver}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>motor:</b> {{entry.motor}}
+																	</td>
+																	<td>
+																		<b>motor_comments:</b> {{entry.motor_comments}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>location:</b> {{entry.location}}
+																	</td>
+																	<td>
+																		<b>drive_day_lead:</b> {{entry.drive_day_lead}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>track:</b> {{entry.track}}
+																	</td>
+																	<td>
+																		<b>weather:</b> {{entry.weather}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>air_temp:</b> {{entry.air_temp}}
+																	</td>
+																	<td>
+																		<b>track_temp:</b> {{entry.track_temp}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>temperature_unit:</b> {{entry.temperature_unit}}
+																	</td>
+																	<td>
+																		<b>wind_direction:</b> {{entry.wind_direction}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>wind_speed:</b> {{entry.wind_speed}}
+																	</td>
+																	<td>
+																		<b>tires:</b> {{entry.tires}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>fl_tire_serial_number:</b> {{entry.fl_tire_serial_number}}
+																	</td>
+																	<td>
+																		<b>fl_tire_condition:</b> {{entry.fl_tire_condition}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>fr_tire_serial_number:</b> {{entry.fr_tire_serial_number}}
+																	</td>
+																	<td>
+																		<b>fr_tire_condition:</b> {{entry.fr_tire_condition}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>bl_tire_serial_number:</b> {{entry.bl_tire_serial_number}}
+																	</td>
+																	<td>
+																		<b>bl_tire_condition:</b> {{entry.bl_tire_condition}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>br_tire_serial_number:</b> {{entry.br_tire_serial_number}}
+																	</td>
+																	<td>
+																		<b>br_tire_condition:</b> {{entry.br_tire_condition}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<a href="{{entry.data_file_link}}"><b>Data File Link</b></a>
+																	</td>
+																	<td>
+																		<b>comments:</b> {{entry.comments}}
+																	</td>
+																</tr>
+																<tr>
+																	<td>
+																		<b>created_at:</b> {{entry.created_at}}
+																	</td>
+																	<td>
+																	</td>
+																</tr>
+															</table>
+														</div>
+														<div class="modal-footer">
+															<form action="{%url 'view_data' %}" method="post">
+																{% csrf_token %}
+																<input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
+																<input type ="text" name="method" style="display: none;" value="delete">
+																<button class="btn btn-danger">Yes, delete</button>
+															</form>
+														</div>
+													</div>
+													</div>
+												</div>
+												<!-- <form action="{%url 'view_data' %}" method="post">
 													{% csrf_token %}
 													<input type ="text" name="entry_id" style="display: none;" value={{entry.id}}>
 													<input type ="text" name="method" style="display: none;" value="delete">
 													<button class="btn bi-trash" data-bs-toggle="modal" data-bs-target="#confirm_delete"></button>
-												</form>
+												</form> -->
 											</td>
 										</tr>
 									</div>                  
 								</table>
 							</td>
 						</tr>
+					{% endif %}
 					{% endfor %}
 				</table>
 			</div>
