@@ -57,7 +57,7 @@
 				</form>
 				{% else %}
 				<br>
-				<form action="{% url 'collectdata' %}" method="post">
+				<form action="{% url 'collectdata' %}" method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					<div class="row">
 						<!-- Flagged -->
@@ -363,6 +363,18 @@
 						</div>
 						<div class="col-md-9">
 							<input type="text" class="form-control" name="comments" id="comments">
+						</div>
+					</div><br>
+					<div class="row">
+						<!-- Images -->
+						<div class="col-md-3">
+							<label for="comments" class="field">Images:</label>
+						</div>
+						<div class="col-md-9">
+							<table>
+								{{ form.as_p }}
+							</table>
+							<input type="submit" value="Upload" />
 						</div>
 					</div><br>
 					<div class="row">

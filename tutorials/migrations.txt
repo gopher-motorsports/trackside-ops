@@ -4,6 +4,7 @@ HOW TO MAKE MIGRATIONS:
 1. Open PG ADMIN
 2. Delete the table that you want to modify
 3. Delete all rows from django_migrations table where app is "data_entry"
+	-Right click on the table name from the list on the left side of the screen and select Query Tool
 SQL for that: 
 DELETE FROM django_migrations WHERE app = 'data_entry';
 4. Delete all files and folders inside the migrations folder inside data_entry folder

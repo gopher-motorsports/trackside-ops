@@ -3,6 +3,10 @@ from .models import Person, Drives
 import datetime
 from .serializers import PersonSerializer, DrivesSerializer
 from rest_framework import viewsets
+from .models import Drives
+from django.forms import ModelForm
+
+
 
 
 class DrivesViewSet(viewsets.ModelViewSet):
@@ -14,6 +18,10 @@ class PersonViewSet(viewsets.ModelViewSet):
 	queryset = Person.objects.all().order_by('name')
 	serializer_class = PersonSerializer
 
+class UploadImageForm(ModelForm):
+    class Meta:
+        model = Drives
+        fields = ['image']
 
 """
 	Home Page
@@ -164,6 +172,15 @@ def collectData(request):
 			br_tire_condition = request.POST.get('br_tire_condition')
 			data_file_link = request.POST.get('data_file_link')
 			comments = request.POST.get('comments')
+			form = UploadImageForm(request.POST, request.FILES)
+			if form.is_valid():
+				uploaded_img = form.save(commit=False)
+				uploaded_img.image_data = form.cleaned_data['image'].file.read()
+				uploaded_img.save()
+				return redirect('/')
+			else:
+				form = UploadImageForm()
+			# return render(request, 'image_process/upload.html', {'form': form})
 			context = {
 				'is_deleted':is_deleted,
 				'flagged':flagged,
