@@ -42,6 +42,6 @@ class Drives(models.Model):
 	br_tire_condition = models.CharField(max_length=100)
 	data_file_link = models.CharField(max_length=100)
 	comments = models.TextField(blank=True)
-	image = models.FileField()
+	image = models.ImageField()
 	image_data = models.BinaryField()
 	created_at = models.DateTimeField(default=now)
