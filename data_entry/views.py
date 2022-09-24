@@ -1,3 +1,4 @@
+from fileinput import filename
 from django.shortcuts import render, redirect
 from .models import Person, Drives
 import datetime
@@ -6,6 +7,7 @@ from rest_framework import viewsets
 from .models import Drives
 from django.forms import ModelForm
 from django.core.files.base import ContentFile
+
 
 
 
@@ -174,9 +176,9 @@ def collectData(request):
 			data_file_link = request.POST.get('data_file_link')
 			comments = request.POST.get('comments')
 			# image = request.POST.get('MY_IMAGE_ID')
-			file = request.FILES.get('image')
+			file = request.FILES.get('image_data')
 
-			form = UploadImageForm(request.POST, request.FILES)
+			# form = UploadImageForm(request.POST, request.FILES)
 			# if form.is_valid():
 			# 	uploaded_img = form.save(commit=False)
 			# 	uploaded_img.image_data = form.cleaned_data['image'].file.read()
@@ -219,8 +221,8 @@ def collectData(request):
 				'br_tire_condition':br_tire_condition,
 				'data_file_link':data_file_link,
 				'comments':comments,
-				'image': uploaded_img.image_data,
-				'form': form
+				'image_data': file,
+				# 'form': form
 			}
 			Drives.objects.create(
 			   is_deleted=is_deleted,
@@ -252,10 +254,11 @@ def collectData(request):
 				br_tire_condition=br_tire_condition,
 				data_file_link=data_file_link,
 				comments=comments,
+				image_data = file
 				# image = uploaded_img.image_data
 			)
-			if file:
-				file.image.save(ContentFile(file), save=True)
+			# if file:
+			# 	file.image.save(ContentFile(file), save=True)
 			return redirect('view_data')
 		# GET REQUEST
 	else:

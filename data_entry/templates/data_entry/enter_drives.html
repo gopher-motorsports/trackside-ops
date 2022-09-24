@@ -244,7 +244,7 @@
 						</div>
 						<div class="col-md-9">
 							<input type="number" class="form-control" id="wind_speed" name="wind_speed" min="0"
-								placeholder="ex. 69mph" required>
+								placeholder="ex. 7mph" required>
 						</div>
 					</div><br>
 					<div class="row">
@@ -453,6 +453,12 @@
 				document.getElementById('location_select').disabled = false;
 			}
 		}
+		var a = document.body.appendChild(
+			document.createElement("a")
+		);
+		a.download = "filename.dat";
+		a.href = "data:text/plain;base64," + L_EncodedData;
+		a.innerHTML = "download";
 	</script>
 </body>
 
